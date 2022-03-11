@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
@@ -27,8 +28,8 @@ public class IndexController {
     private CarService carService;
     @Resource
     private RentPriceService rentPriceService;
-    //@Resource
-    //private RentLogService rentLogService;
+    @Resource
+    private RentLogService rentLogService;
     @Resource
     private MoneyService moneyService;
     @Resource
@@ -407,6 +408,31 @@ public class IndexController {
         userLicenseService.insertBean(bean);
 
         writer.print("<script  language='javascript'>alert('操作成功');window.location.href='uploadLicense.do'; </script>");
+
+    }
+    //申请注销
+    @RequestMapping("/accountCancellation.do")
+    public void accountCancellation(HttpServletRequest request,HttpServletResponse response){
+        PrintWriter writer = this.getPrintWriter(response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("qiantai");
+        //todo 如果还有租赁中的，不许注销
+        //未提现到0也不可以哦
+        //增加注销申请
+        rentLogService.insertLog(user.getName(),user.getCellPhone(), user.getID(), "申请注销", BigDecimal.valueOf(0),null);
+        //return "accountCancellation";
+    }
+    //退出登录
+    @RequestMapping("/loginout.do")
+    public void loginout(HttpServletRequest request,HttpServletResponse response){
+
+        PrintWriter writer = this.getPrintWriter(response);
+
+        HttpSession session = request.getSession();
+        session.removeAttribute("qiantai");
+
+        writer.print("<script language=javascript>alert('退出成功');window.location.href='index.do';</script>");
+
 
     }
     // 获取输出对象

@@ -133,7 +133,7 @@
                                                     <td><span class="text-danger " ><bold >${bean.seats }</bold></span></td>
                                                     <td>${bean.color }</td>
 
-                                                    <td><a href="carview.do?id=${bean.id }">查看详情</a>
+                                                    <td><a href="carview.do?id=${bean.carInfoId }">查看详情</a>
                                                         &nbsp;&nbsp;&nbsp;
                                                             <input
                                                                     type="button" class="btn btn-danger" value="预定租车"

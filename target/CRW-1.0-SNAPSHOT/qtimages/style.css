@@ -22,15 +22,11 @@ A:hover {
 A:active {
 	COLOR: #000; TEXT-DECORATION: none
 }
-.lpsyf {
-	BACKGROUND: url(../images/index_r1_c1.jpg) no-repeat left bottom
-}
+
 .nycontent {
 	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; LINE-HEIGHT: 22px; PADDING-TOP: 5px
 }
-.nylist {
-	BACKGROUND: url(../images/index_r4_c8.gif) no-repeat left top
-}
+
 .boder {
 	BORDER-RIGHT: #b9b9b9 1px solid; BORDER-TOP: #b9b9b9 0px solid; BORDER-LEFT: #b9b9b9 1px solid; BORDER-BOTTOM: #b9b9b9 1px solid
 }

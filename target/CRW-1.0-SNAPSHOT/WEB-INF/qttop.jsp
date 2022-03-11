@@ -71,7 +71,7 @@
 											<li class="divider"></li>
 											<li><a href="loginout.do">退出登录</a></li>
 											<li class="divider"></li>
-											<li><a href="loginout.do">注销账号</a></li>
+											<li><a href="accountCancellation.do">注销账号</a></li>
 										</ul> </a> </strong></td>
 
 						</c:if>
