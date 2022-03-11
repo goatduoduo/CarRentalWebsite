@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Maper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duoduo.dao.RentLogDao">
+    <resultMap id="rentLogMap" type="com.duoduo.model.RentLog">
+        <id property="logID" column="logID"/>
+        <result property="name" column="name"/>
+        <result property="cellPhone" column="cellPhone"/>
+        <result property="userID" column="ID"/>
+        <result property="logTime" column="logTime"/>
+        <result property="status" column="status"/>
+        <result property="licensePlate" column="licensePlate"/>
+        <result property="deltaMoney" column="deltaMoney"/>
+    </resultMap>
+
+    <insert id="insertLog">
+        insert into rentlog(name, cellPhone, ID, status,deltaMoney, licensePlate)
+        values (#{name},#{cellPhone},#{userID},#{status},#{deltaMoney},#{licensePlate})
+    </insert>
+
+    <select id="selectUserRentLog" resultMap="rentLogMap">
+        select logID,name,cellPhone,ID,logTime,status,licensePlate,-deltaMoney
+        from rentlog where ID=#{userID}
+        order by logTime desc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="selectUserRentLogCount" resultType="int">
+        select count(*)
+        from rentlog where ID=#{userID}
+    </select>
+</mapper>

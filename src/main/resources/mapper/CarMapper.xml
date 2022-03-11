@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Maper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duoduo.dao.CarDao">
+<!--    车辆操作相关数据！-->
+    <resultMap id="carResultMap" type="com.duoduo.model.Car">
+        <id property="carInfoId" column="cID"/>
+        <result property="carTypeId" column="ctID"/>
+        <result property="licensePlate" column="licensePlate"/>
+        <result property="drivingLicense" column="drivingLicense"/>
+        <result property="createTime" column="ctime"/>
+        <result property="carTypeName" column="ctName"/>
+        <result property="brand" column="brand"/>
+        <result property="location" column="location"/>
+        <result property="seats" column="seats"/>
+        <result property="color" column="color"/>
+        <result property="picPath" column="picPath"/>
+        <result property="info" column="info"/>
+    </resultMap>
+
+<!--    插入操作-->
+    <insert id="insertBean" parameterType="com.duoduo.model.Car">
+        insert into carinfo(cID ,ctID,licensePlate,drivingLicense,ctime)
+        values (#{carInfoId},#{carTypeId},#{licensePlate},#{drivingLicense},#{createTime});
+        insert into cardetail(cID,brand,location,seats,color,picPath,info)
+        values (#{carInfoId},#{brand},#{location},#{seats},#{color},#{picPath},#{info});
+    </insert>
+<!--    分页查询-->
+    <select id="selectBeanList"
+            resultMap="carResultMap" >
+        select * from carinfo a,cardetail b,cartype c
+        where a.cID=b.cID and a.ctID=c.ctID
+<!--        <if test="brand != '' and brand != null">-->
+<!--            and brand like '%' #{brand} '%'-->
+<!--        </if>-->
+<!--        <if test="ctId != '' and ctId != null">-->
+<!--            and ctID = ${carTypeId}-->
+<!--        </if>-->
+<!--        <if test="seats != '' and seats != null">-->
+<!--            and seats = ${carTypeId}-->
+<!--        </if>-->
+        order by a.cID asc
+        limit #{start}, #{limit}
+
+    </select>
+    <select id="selectBeanCount"
+            resultType="int" >
+        select count(*) from carinfo a,cardetail b
+        where a.cID=b.cID
+        <!--        <if test="brand != '' and brand != null">-->
+        <!--            and brand like '%' #{brand} '%'-->
+        <!--        </if>-->
+        <!--        <if test="ctId != '' and ctId != null">-->
+        <!--            and ctID = ${carTypeId}-->
+        <!--        </if>-->
+        <!--        <if test="seats != '' and seats != null">-->
+        <!--            and seats = ${carTypeId}-->
+        <!--        </if>-->
+    </select>
+
+    <select id="selectBeanById" resultMap="carResultMap">
+        select * from carinfo a,cardetail b,cartype c
+        where a.cID=b.cID and a.cID=c.ctID and a.cID=#{id}
+    </select>
+
+    <update id="updateRentStatus">
+        update rentstatus
+        set cellPhone=#{cellPhone},userID=#{userID},rentStatus=#{rentStatus}
+        where cID=#{cID}
+    </update>
+</mapper>

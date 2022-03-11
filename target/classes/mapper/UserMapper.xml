@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Maper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duoduo.dao.UserDao">
+    <sql id="userField">
+        a
+        .
+        ID
+        as "ID",
+        a.name as "name",
+        a.pwd as "pwd"
+    </sql>
+    <select id="findAll" resultType="com.duoduo.model.User">
+        select
+        <include refid="userField"/>
+        from user as a
+    </select>
+    <resultMap id="userResultMap" type="com.duoduo.model.User">
+        <id property="ID" column="ID"/>
+        <result property="userName" column="userName"/>
+        <result property="pwd" column="pwd"/>
+        <result property="createTime" column="createTime"/>
+        <result property="role" column="role"/>
+        <result property="name" column="name"/>
+        <result property="cellPhone" column="cellPhone"/>
+        <result property="identity" column="identity"/>
+        <result property="licenseNumber" column="licenseNumber"/>
+
+    </resultMap>
+
+    <!-- 插入到数据库 -->
+    <insert id="insertBean"
+            parameterType="com.duoduo.model.User">
+        insert into user (ID,
+                            userName,
+                            cellPhone,
+                            pwd,
+                            createTime,
+                            identity,
+                            role,
+                            name)
+        values (#{ID},
+                #{userName},
+                #{cellPhone},
+                #{pwd},
+                #{createTime},
+                #{identity},
+                #{role},
+                #{name});
+        insert into money(
+                       cellPhone,
+                         ID,
+                          curMoney,
+        )
+        values(
+               #{cellPhone},
+               #{ID},
+               0
+              );
+    </insert>
+
+    <!-- 根据ID删除数据库的记录 -->
+    <delete id="deleteBean"
+            parameterType="int">
+        delete
+        from t_user
+        where id = #{id}
+    </delete>
+
+    <!-- 根据ID更新数据库的记录 -->
+    <update id="updateBean"
+            parameterType="com.duoduo.model.User">
+        update
+        t_user
+        <set>
+            <trim suffixOverrides=",">
+
+                <if test="username !=null">
+                    username=#{username},
+                </if>
+                <if test="pwd !=null">
+                    password=#{pwd},
+                </if>
+                <if test="createTime !=null">
+                    createTime=#{createTime},
+                </if>
+                <if test="role !=null">
+                    role=#{role},
+                </if>
+                <if test="name !=null">
+                    name=#{name},
+                </if>
+                <if test="identity !=null">
+                    identity=#{identity},
+                </if>
+                <if test="cellPhone !=null">
+                    cellPhone=#{cellPhone}
+                </if>
+            </trim>
+        </set>
+        where
+        id=#{id}
+
+    </update>
+
+
+    <!-- 用户登录 手机号和密码 -->
+    <select id="userlogin" resultMap="userResultMap">
+        SELECT `user`.userName,
+               `user`.cellPhone,
+               `user`.licenseNumber,
+               `user`.pwd,
+               `user`.createTime,
+               `user`.identity,
+               `user`.role,
+               `user`.`name`,
+               `user`.ID
+        FROM USER
+        WHERE cellphone = #{username}
+          and pwd = #{password}
+    </select>
+
+    <select id="selectBeanById" resultMap="userResultMap">
+        SELECT `user`.userName,
+               `user`.cellPhone,
+               `user`.licenseNumber,
+               `user`.pwd,
+               `user`.createTime,
+               `user`.identity,
+               `user`.role,
+               `user`.`name`,
+               `user`.ID
+        FROM USER
+        WHERE id = #{id}
+    </select>
+
+    <select id="hasAvailableLicense" resultType="int">
+        select count(*)
+        from driverlincence
+        where examineStatus = 1
+          and ID = #{id}
+    </select>
+
+    <select id="existCellphone" resultType="int">
+        select count(*)
+        from user
+        where cellPhone = #{Cellphone}
+    </select>
+
+    <select id="existIdentity" resultType="int">
+        select count(*)
+        from user
+        where identity =#{Identity}
+    </select>
+
+</mapper>

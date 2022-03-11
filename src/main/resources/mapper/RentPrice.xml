@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Maper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duoduo.dao.RentPriceDao">
+    <resultMap id="rentPriceResultMapSimple" type="com.duoduo.model.RentPrice">
+        <id property="carInfoId" column="cID"/>
+        <result property="carInfoId" column="cID"/>
+        <result property="dailyRent" column="dailyRent"/>
+        <result property="deposit" column="deposit"/>
+        <result property="insurance" column="insurance"/>
+        <result property="serviceCharge" column="serviceCharge"/>
+        <result property="rentStatus" column="rentStatus"/>
+    </resultMap>
+    <resultMap id="priceChangeResultMap" type="com.duoduo.model.PriceChange">
+        <result property="deltaPrice" column="deltaPrice"/>
+        <result property="startTime" column="startTime"/>
+        <result property="endTime" column="endTime"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <select id="selectPriceById" resultMap="rentPriceResultMapSimple">
+        select rentprice.cID,dailyRent,deposit,insurance,serviceCharge,rentStatus from rentprice,rentstatus where
+            rentprice.cID=rentstatus.cID and rentprice.cID=#{id}
+    </select>
+
+    <select id="selectDeltaPriceById" resultMap="priceChangeResultMap">
+        select deltaPrice,startTime,endTime,type from priceChange  where clID=#{id}
+    </select>
+
+</mapper>
