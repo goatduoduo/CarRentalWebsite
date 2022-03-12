@@ -56,4 +56,14 @@ public class UserServiceImpl implements UserService {
     public int existCellphone(String Cellphone) {
         return userDao.existCellphone(Cellphone);
     }
+
+    @Override
+    public List<User> selectBeanList(int start, int limit, String username) {
+        return userDao.selectBeanList(start, limit, username);
+    }
+
+    @Override
+    public int selectBeanCount(String username) {
+        return userDao.selectBeanCount(username);
+    }
 }

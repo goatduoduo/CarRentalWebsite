@@ -26,4 +26,7 @@ public interface UserDao {
     public int existIdentity(@Param("Identity") String Identity);
 
     public int existCellphone(@Param("Cellphone")String Cellphone);
+
+    public List<User> selectBeanList(@Param("start") int start,@Param("limit") int limit,@Param("username") String username);
+    public int selectBeanCount(@Param("username") String username);
 }

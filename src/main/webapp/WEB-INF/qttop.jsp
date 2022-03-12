@@ -91,10 +91,14 @@
 								<ul class="dropdown-menu">
 									<li><a href="userupdate.do">车辆管理</a></li>
 									<li class="divider"></li>
-									<li><a href="password.do">用户管理</a></li>
+									<li><a href="userlist.do">用户管理</a></li>
 									<li class="divider"></li>
 									<li><a href="loginout.do">租车日志</a></li>
+									<li><a href="loginout.do">注销审核</a></li>
+									<li><a href="loginout.do">退出登录</a></li>
+									<li class="divider"></li>
 								</ul> </a> </strong></td>
+
 
 						</c:if>
 

@@ -27,4 +27,7 @@ public interface UserService {
     public int existIdentity(String Identity);
     //验证手机号是否已存在
     public int existCellphone(String Cellphone);
+
+    public List<User> selectBeanList(int start,int limit,String username);
+    public int selectBeanCount(String username);
 }

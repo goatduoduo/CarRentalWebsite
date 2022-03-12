@@ -435,6 +435,74 @@ public class IndexController {
 
 
     }
+    //用户管理
+    //人员列表
+    @RequestMapping("/userlist.do")
+    public String userlist(HttpServletRequest request,String pagenum,String username){
+
+        //查询条件返回页面
+        if (username != null && !"".equals(username)) {
+
+            request.setAttribute("username", username);
+        }
+
+
+        //分页功能默认第一页
+        int currentpage = 1;
+        //获取当前页
+        if (pagenum != null) {
+            currentpage = Integer.parseInt(pagenum);
+        }
+
+        //查询列表
+        List<User> list = userService.selectBeanList((currentpage - 1)
+                * pageSize, pageSize, username);
+
+        //列表返回页面
+        request.setAttribute("list", list);
+
+        //获取总数量
+        int total = userService.selectBeanCount(username);
+
+        //分页信息返回页面
+        request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
+                currentpage, "userlist.do", "共有" + total + "条记录"));
+
+        //查询按钮
+        request.setAttribute("url", "userlist.do");
+
+        //添加，更新，删除等按钮
+        request.setAttribute("url2", "user");
+
+        request.setAttribute("title", "人员管理");
+
+        return "userlist";
+
+    }
+    //跳转到修改人员页面
+    @RequestMapping("/userupdate2.do")
+    public String userupdate(HttpServletRequest request,int id){
+
+        User bean = userService.selectBeanById(id);
+
+        request.setAttribute("bean", bean);
+
+        request.setAttribute("url", "userupdate2do.do?id="+id);
+
+        request.setAttribute("title", "修改人员");
+
+        return "userupdate2";
+
+    }
+    //修改人员操作
+    @RequestMapping("/userupdate2do.do")
+    public void userupdate2(HttpServletResponse response,User bean){
+
+        userService.updateBean(bean);
+
+
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='userlist.do';</script>");
+    }
     // 获取输出对象
     public PrintWriter getPrintWriter(HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
