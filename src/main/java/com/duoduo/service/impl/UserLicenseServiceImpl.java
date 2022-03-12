@@ -6,6 +6,7 @@ import com.duoduo.service.UserLicenseService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserLicenseServiceImpl implements UserLicenseService {
@@ -24,5 +25,10 @@ public class UserLicenseServiceImpl implements UserLicenseService {
     @Override
     public void setExamineStatus(int ID, int examineStatus) {
         userLicenseDao.setExamineStatus(ID,examineStatus);
+    }
+
+    @Override
+    public List<UserLicense> selectBeanList(int status) {
+        return userLicenseDao.selectBeanList(status);
     }
 }

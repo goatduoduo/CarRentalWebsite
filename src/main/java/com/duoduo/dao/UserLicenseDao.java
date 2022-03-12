@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.util.List;
 
 @Repository
 public interface UserLicenseDao {
@@ -16,4 +17,7 @@ public interface UserLicenseDao {
 
     //审核
     public void setExamineStatus(@Param("ID") int ID, @Param("examineStatus") int examineStatus);
+
+    //选择满足条件的
+    public List<UserLicense> selectBeanList(@Param("status") int status);
 }

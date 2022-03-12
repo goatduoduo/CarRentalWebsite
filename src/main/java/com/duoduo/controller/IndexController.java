@@ -503,6 +503,36 @@ public class IndexController {
 
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='userlist.do';</script>");
     }
+    //修改人员操作
+    @RequestMapping("/userdelete2.do")
+    public void userdelete(HttpServletResponse response,int id){
+        //todo 删除前需要确保他已经提现完成，且没有车辆在驾驶
+        userService.deleteBean(id);
+
+
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='userlist.do';</script>");
+    }
+    //修改人员操作
+    @RequestMapping("/licenseexamine.do")
+    public String licenseexamine(HttpServletRequest request,int status){
+        request.setAttribute("status", status);
+        List<UserLicense> userLicenses=userLicenseService.selectBeanList(status);
+        //列表返回页面
+        request.setAttribute("list", userLicenses);
+        return "licenseexamine";
+    }
+    //审核通过
+    @RequestMapping("/licenseexamine1.do")
+    public void licenseexamine1(HttpServletResponse response,int id){
+        userLicenseService.setExamineStatus(id,1);
+        this.getPrintWriter(response).print("<script language=javascript>alert('审核通过设置成功');window.location.href='licenseexamine.do';</script>");
+    }
+    //审核不通过
+    @RequestMapping("/licenseexamine2.do")
+    public void licenseexamine2(HttpServletResponse response,int id){
+        userLicenseService.setExamineStatus(id,2);
+        this.getPrintWriter(response).print("<script language=javascript>alert('审核不通过设置成功');window.location.href='licenseexamine.do';</script>");
+    }
     // 获取输出对象
     public PrintWriter getPrintWriter(HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
