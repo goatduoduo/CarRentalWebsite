@@ -11,4 +11,6 @@ public interface MoneyDao {
     public BigDecimal canAfford(@Param("userID") int userID,@Param("cost") BigDecimal cost);
     //付款 钱为正数 或者退款 钱为负数
     public void payOrReturn(@Param("userID") int userID,@Param("deltaMoney") BigDecimal deltaMoney);
+
+    public BigDecimal getUserCurMoney(@Param("userID") int userID);
 }

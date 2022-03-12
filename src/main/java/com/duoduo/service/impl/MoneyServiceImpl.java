@@ -20,4 +20,9 @@ public class MoneyServiceImpl implements MoneyService {
     public void payOrReturn(int userID, BigDecimal deltaMoney) {
         moneyDao.payOrReturn(userID, deltaMoney);
     }
+
+    @Override
+    public BigDecimal getUserCurMoney(int userID) {
+        return moneyDao.getUserCurMoney(userID);
+    }
 }

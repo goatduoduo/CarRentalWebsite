@@ -7,4 +7,6 @@ public interface MoneyService {
     public BigDecimal canAfford(int userID,BigDecimal cost);
     //付款 钱为正数 或者退款 钱为负数
     public void payOrReturn(int userID,BigDecimal deltaMoney);
+    //获取该用户的money
+    public BigDecimal getUserCurMoney(int userID);
 }

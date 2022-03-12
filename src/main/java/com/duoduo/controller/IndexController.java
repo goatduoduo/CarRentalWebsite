@@ -569,6 +569,122 @@ public class IndexController {
                 "window.location.href='carlist.do';</script>");
     }
     //todo 车辆的修改和删除
+    //管理员的车辆页面
+    @RequestMapping("/carlist2.do")
+    public String carlist2(HttpServletRequest request,String pagenum){
+        //分页功能默认第一页
+        int currentpage = 1;
+        //获取当前页
+        if (pagenum != null) {
+            currentpage = Integer.parseInt(pagenum);
+        }
+
+        //查询列表
+        List<Car> list = carService.selectBeanList((currentpage - 1)
+                * pageSize, pageSize,null);
+
+        //列表返回页面
+        request.setAttribute("list", list);
+
+        //获取总数量
+        int total = carService.selectBeanCount(null);
+
+        //分页信息返回页面
+        request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
+                currentpage, "carlist2.do", "共有" + total + "条记录"));
+
+        //查询按钮
+        request.setAttribute("url", "carlist2.do");
+
+        //添加，更新，删除等按钮
+        request.setAttribute("url2", "car");
+
+        request.setAttribute("title", "车辆管理");
+
+        return "carlist2";
+    }
+    @RequestMapping("/carupdate.do")
+    public String carupdate(HttpServletRequest request,int id){
+        //todo 更新车辆
+        Car bean = carService.selectBeanById(id);
+
+        request.setAttribute("bean", bean);
+
+        request.setAttribute("url", "carupdate2.do?id="+id);
+
+        request.setAttribute("title", "修改车辆");
+        return "index.do";
+    }
+
+    @RequestMapping("/cardelete.do")
+    public void cardelete(HttpServletResponse response,int id){
+
+        carService.deleteBean(id);
+
+
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='carlist2.do';</script>");
+    }
+    //进入充值与提现页面
+    @RequestMapping("/usermoney.do")
+    public String usermoney(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session = request.getSession();
+        User user=(User) session.getAttribute("qiantai");
+        request.setAttribute("userName",user.getUserName());
+        request.setAttribute("curMoney",moneyService.getUserCurMoney(user.getID()));
+        return "usermoney";
+    }
+    //充值
+    @RequestMapping("/userrecharge.do")
+    public void userrecharge(HttpServletRequest request,HttpServletResponse response,BigDecimal recharge){
+        HttpSession session = request.getSession();
+        User user=(User) session.getAttribute("qiantai");
+        moneyService.payOrReturn(user.getID(),recharge.multiply(new BigDecimal(-1)));
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),"充值",recharge,"");
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
+    }
+    //提现
+    @RequestMapping("/userimpose.do")
+    public void userimpose(HttpServletRequest request,HttpServletResponse response,BigDecimal impose){
+        HttpSession session = request.getSession();
+        User user=(User) session.getAttribute("qiantai");
+        moneyService.payOrReturn(user.getID(),impose.multiply(new BigDecimal(1)));
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),"提现",impose,"");
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
+    }
+    //租车日志
+    @RequestMapping("/logview.do")
+    public String logview(HttpServletRequest request,HttpServletResponse response,String pagenum){
+        //分页功能默认第一页
+        int currentpage = 1;
+        //获取当前页
+        if (pagenum != null) {
+            currentpage = Integer.parseInt(pagenum);
+        }
+
+        //查询列表
+        List<Car> list = carService.selectBeanList((currentpage - 1)
+                * pageSize, pageSize,null);
+
+        //列表返回页面
+        request.setAttribute("list", list);
+
+        //获取总数量
+        int total = carService.selectBeanCount(null);
+
+        //分页信息返回页面
+        request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
+                currentpage, "carlist2.do", "共有" + total + "条记录"));
+
+        //查询按钮
+        request.setAttribute("url", "carlist2.do");
+
+        //添加，更新，删除等按钮
+        request.setAttribute("url2", "car");
+
+        request.setAttribute("title", "车辆管理");
+
+        return "logview";
+    }
 
     // 获取输出对象
     public PrintWriter getPrintWriter(HttpServletResponse response) {
