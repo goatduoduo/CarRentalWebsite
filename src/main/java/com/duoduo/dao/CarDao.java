@@ -4,6 +4,8 @@ import com.duoduo.model.Car;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -32,4 +34,12 @@ public interface CarDao {
 
     //修改租赁状态
     public void updateRentStatus(int cID,String cellPhone,int userID,String rentStatus);
+
+    //获取可用ID以添加
+    public int getCarID();
+
+    public void insertBeanByID(@Param("carID") int carID, @Param("licensePlate") String licensePlate, @Param("brand") String brand, @Param("drivingLicense") String drivingLicense,
+                               @Param("carTypeId") int carTypeId, @Param("picPath") String picPath, @Param("dailyRent") BigDecimal dailyRent, @Param("deposit") BigDecimal deposit,
+                               @Param("price") BigDecimal price, @Param("insurance") BigDecimal insurance, @Param("serviceCharge") BigDecimal serviceCharge, @Param("location") String location,
+                               @Param("createTime")Date createTime,@Param("seats") int seats,@Param("info") int info);
 }

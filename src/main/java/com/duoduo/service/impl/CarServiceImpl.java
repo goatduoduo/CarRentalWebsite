@@ -6,6 +6,8 @@ import com.duoduo.service.CarService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -45,5 +47,15 @@ public class CarServiceImpl implements CarService {
     @Override
     public void updateRentStatus(int cID, String cellPhone, int userID, String rentStatus) {
         carDao.updateRentStatus(cID, cellPhone, userID, rentStatus);
+    }
+
+    @Override
+    public int getCarID() {
+        return carDao.getCarID();
+    }
+
+    @Override
+    public void insertBeanByID(int carID, String licensePlate, String brand, String drivingLicense, int carTypeId, String picPath, BigDecimal dailyRent, BigDecimal deposit, BigDecimal price, BigDecimal insurance, BigDecimal serviceCharge, String location, Date createTime,int seats, int info) {
+        carDao.insertBeanByID(carID, licensePlate, brand, drivingLicense, carTypeId, picPath, dailyRent, deposit, price, insurance, serviceCharge,location,createTime,seats, info);
     }
 }

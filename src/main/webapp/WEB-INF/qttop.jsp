@@ -76,10 +76,10 @@
 
 						</c:if>
 <%--						管理员模块--%>
-						<c:if test="${qiantai!=null && role==1}">
+						<c:if test="${qiantai!=null && ro@le==1}">
 							<td align="center"><strong><a ><span
 									class="STYLE1">管理员：${username}</span></a></strong></td>
-							<td align="center"><strong><a href="yudinglist.do"><span
+							<td align="center"><strong><a href="caradd.do"><span
 									class="STYLE1">发布车辆</span></a></strong></td>
 							<td align="center"><strong><a href="licenseexamine.do"><span
 									class="STYLE1">证件审核</span></a></strong></td>

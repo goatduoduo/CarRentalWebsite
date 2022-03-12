@@ -533,6 +533,43 @@ public class IndexController {
         userLicenseService.setExamineStatus(id,2);
         this.getPrintWriter(response).print("<script language=javascript>alert('审核不通过设置成功');window.location.href='licenseexamine.do';</script>");
     }
+    //转到跳转页面
+    @RequestMapping("/caradd.do")
+    public String caradd(HttpServletRequest request){
+
+        request.setAttribute("url", "caradd2.do");
+
+        request.setAttribute("title", "添加车辆");
+
+        return "caradd";
+
+    }
+    //添加车辆操作
+    @RequestMapping("/caradd2.do")
+    public void caradd2(HttpServletResponse response,HttpServletRequest request,String licensePlate,
+                        String brand,String drivingLicense,int carTypeId, MultipartFile prodFile,
+                        BigDecimal dailyRent,BigDecimal deposit,BigDecimal price,BigDecimal insurance,BigDecimal serviceCharge,String location,Date createTime,
+                        int seats, int info){
+
+
+        if(prodFile==null || prodFile.getSize()<=0 ){
+            this.getPrintWriter(response).print("<script language=javascript>alert('车辆图片不能为空');" +
+                    "window.location.href='caradd.do';</script>");
+            return;
+        }
+
+        String pic =  FileUtil.uploadFile(request, prodFile);
+        int carID=carService.getCarID();
+        //长到离谱的创建函数
+        carService.insertBeanByID(carID,licensePlate,brand,drivingLicense,
+                carTypeId,pic,dailyRent,deposit,price,insurance,serviceCharge,
+                location,createTime,seats,info);
+
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');" +
+                "window.location.href='carlist.do';</script>");
+    }
+    //todo 车辆的修改和删除
+
     // 获取输出对象
     public PrintWriter getPrintWriter(HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");

@@ -1,7 +1,11 @@
 package com.duoduo.service;
 
 import com.duoduo.model.Car;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 public interface CarService {
@@ -29,4 +33,13 @@ public interface CarService {
 
     //修改租赁状态
     public void updateRentStatus(int cID,String cellPhone,int userID,String rentStatus);
+
+    //获取可用ID以添加
+    public int getCarID();
+
+    //插入动作
+    public void insertBeanByID(int carID, String licensePlate, String brand, String drivingLicense,
+                               int carTypeId, String picPath, BigDecimal dailyRent, BigDecimal deposit,
+                               BigDecimal price, BigDecimal insurance, BigDecimal serviceCharge, String location, Date createTime,
+                               int seats, int info);
 }
