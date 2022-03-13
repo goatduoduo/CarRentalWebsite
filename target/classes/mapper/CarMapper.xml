@@ -68,4 +68,18 @@
         set cellPhone=#{cellPhone},userID=#{userID},rentStatus=#{rentStatus}
         where cID=#{cID}
     </update>
+
+    <select id="getCarID" resultType="int">
+        select max(cID)+1 from carinfo
+    </select>
+
+    <insert id="insertBeanByID">
+        insert into carinfo(cID,ctID,licensePlate,drivingLicense,ctime)
+        values(#{carID},#{carTypeId},#{licensePlate},#{drivingLicense},#{createTime});
+        insert into cardetail(cID,brand,location,seats,color,picPath,info)
+        values(#{carID},#{brand},#{location},#{seats},#{color},#{picPath},#{info});
+        insert into rentprice(dailyRent,deposit,price,insurance,serviceCharge,cID)
+        values(#{dailyRent},#{deposit},#{price},#{insurance},#{serviceCharge},#{carID});
+        insert into rentstatus(cID,rentStatus) values(#{carID},'available');
+    </insert>
 </mapper>

@@ -422,7 +422,7 @@ public class IndexController {
         rentLogService.insertLog(user.getName(),user.getCellPhone(), user.getID(), "申请注销", BigDecimal.valueOf(0),null);
         //return "accountCancellation";
     }
-    //退出登录
+    //安全退出操作
     @RequestMapping("/loginout.do")
     public void loginout(HttpServletRequest request,HttpServletResponse response){
 
@@ -431,7 +431,7 @@ public class IndexController {
         HttpSession session = request.getSession();
         session.removeAttribute("qiantai");
 
-        writer.print("<script language=javascript>alert('退出成功');window.location.href='index.do';</script>");
+        writer.print("<script language=javascript>alert('退出成功');window.location.href='.';</script>");
 
 
     }
@@ -480,7 +480,7 @@ public class IndexController {
 
     }
     //跳转到修改人员页面
-    @RequestMapping("/userupdate2.do")
+    @RequestMapping("/userupdate22.do")
     public String userupdate(HttpServletRequest request,int id){
 
         User bean = userService.selectBeanById(id);

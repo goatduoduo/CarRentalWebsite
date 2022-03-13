@@ -59,7 +59,7 @@
             </TD>
             <TD align="center">
 
-                <a href="${url2 }update2.do?id=${bean.ID }"><span style="font-size: 12px;">编辑</span></a>
+                <a href="${url2 }update22.do?id=${bean.ID }"><span style="font-size: 12px;">编辑</span></a>
                 &nbsp;
                 <a href="${url2 }delete2.do?id=${bean.ID }" onclick="return confirm('确定要删除吗?'); ">
                     <span style="font-size: 12px;">删除</span></a>

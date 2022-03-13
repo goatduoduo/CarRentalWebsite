@@ -69,6 +69,8 @@
 										<ul class="dropdown-menu">
 											<li><a href="userupdate.do">信息修改</a></li>
 											<li class="divider"></li>
+											<li><a href="usermoney.do">个人财务</a></li>
+											<li class="divider"></li>
 											<li><a href="loginout.do">退出登录</a></li>
 											<li class="divider"></li>
 											<li><a href="accountCancellation.do">注销账号</a></li>
@@ -79,9 +81,9 @@
 						<c:if test="${qiantai!=null && role==1}">
 							<td align="center"><strong><a ><span
 									class="STYLE1">管理员：${username}</span></a></strong></td>
-							<td align="center"><strong><a href="yudinglist.do"><span
+							<td align="center"><strong><a href="caradd.do"><span
 									class="STYLE1">发布车辆</span></a></strong></td>
-							<td align="center"><strong><a href="jilulist.do"><span
+							<td align="center"><strong><a href="licenseexamine.do"><span
 									class="STYLE1">证件审核</span></a></strong></td>
 							<td align="center"><strong><a href="jilulist.do"><span
 									class="STYLE1">流程确认</span></a></strong></td>
@@ -89,12 +91,15 @@
 									href="#" class=" dropdown-toggle" data-toggle="dropdown"><font
 									class=" dropdown STYLE1">信息管理</font><b class="caret"></b>
 								<ul class="dropdown-menu">
-									<li><a href="userupdate.do">车辆管理</a></li>
+									<li><a href="carlist2.do">车辆管理</a></li>
 									<li class="divider"></li>
-									<li><a href="password.do">用户管理</a></li>
+									<li><a href="userlist.do">用户管理</a></li>
 									<li class="divider"></li>
-									<li><a href="loginout.do">租车日志</a></li>
+									<li><a href="logview.do">租车日志</a></li>
+									<li><a href="loginout.do">退出登录</a></li>
+									<li class="divider"></li>
 								</ul> </a> </strong></td>
+
 
 						</c:if>
 

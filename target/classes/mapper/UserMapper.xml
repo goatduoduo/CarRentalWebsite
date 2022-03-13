@@ -120,7 +120,7 @@
           and pwd = #{password}
     </select>
 
-    <select id="selectBeanById" resultMap="userResultMap">
+    <select id="selectBeanByID" resultMap="userResultMap">
         SELECT `user`.userName,
                `user`.cellPhone,
                `user`.licenseNumber,
@@ -151,6 +151,34 @@
         select count(*)
         from user
         where identity =#{Identity}
+    </select>
+
+    <select id="selectBeanList" resultMap="userResultMap">
+        select
+        *
+        from
+        user
+        where (role=1 or role=2)
+        <if test="username != '' and username != null">
+            and userName like '%' #{username} '%'
+        </if>
+
+        order by id asc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="selectBeanCount" resultType="int">
+        select
+        count(*)
+        from
+        user
+        where (role=1 or role=2)
+        <if test="username != '' and username != null">
+            and userName like '%' #{username} '%'
+        </if>
+
+        order by id asc
+        limit #{start}, #{limit}
     </select>
 
 </mapper>
