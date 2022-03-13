@@ -134,13 +134,13 @@
                                                     <td><span class="text-danger " ><bold >${bean.seats }</bold></span></td>
                                                     <td>${bean.color }</td>
 
-                                                    <td><a href="carview.do?id=${bean.carInfoId }">查看详情</a>
+                                                    <td><a href="carview.do?id=${bean.carInfoId }" class="btn btn-danger">查看详情</a>
                                                         &nbsp;&nbsp;&nbsp;
-                                                            <input
-                                                                    type="button" class="btn btn-danger" value="预定租车"
-                                                                    onClick="if(confirm('确认预定?')){window.location.href='reserveadd.do?carid=${bean.carInfoId }'}return false;"/>
-                                                            <%-- <a href="yudingadd.do?carid=${bean.id }"
-                                                                onclick="{if(confirm('确认预定?')){return true;}return false;}">预定租车</a> --%>
+<%--                                                            <input--%>
+<%--                                                                    type="button" class="btn btn-danger" value="预定租车"--%>
+<%--                                                                    onClick="if(confirm('确认预定?')){window.location.href='reserveadd.do?carid=${bean.carInfoId }'}return false;"/>--%>
+<%--                                                            &lt;%&ndash; <a href="yudingadd.do?carid=${bean.id }"--%>
+<%--                                                                onclick="{if(confirm('确认预定?')){return true;}return false;}">预定租车</a> &ndash;%&gt;--%>
                                                         </td>
 
                                                 </tr>

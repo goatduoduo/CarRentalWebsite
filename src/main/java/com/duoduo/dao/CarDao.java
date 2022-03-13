@@ -33,7 +33,7 @@ public interface CarDao {
     public int selectBeanCount(Car car);
 
     //修改租赁状态
-    public void updateRentStatus(int cID,String cellPhone,int userID,String rentStatus);
+    public void updateRentStatus(@Param("cID") int cID,@Param("cellPhone")String cellPhone,@Param("userID") int userID,@Param("rentStatus") String rentStatus);
 
     //获取可用ID以添加
     public int getCarID();

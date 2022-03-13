@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RentLogService {
     //增加日志
-    public void insertLog(String name, String cellPhone, int userID, String status,
+    public void insertLog(String name, String cellPhone, int userID,int carID, String status,
                           BigDecimal deltaMoney, String licensePlate);
     //更新一条日志
     public void updateLog(int logID,String name,String cellPhone, int userID, String status,
@@ -17,4 +17,12 @@ public interface RentLogService {
 
     //查询数量
     public int selectUserRentLogCount(int userID);
+
+    //查询所有日志
+    public List<RentLog> selectRentLog( int start, int limit);
+
+    //查询数量
+    public int selectRentLogCount();
+
+
 }

@@ -16,8 +16,9 @@ public class RentLogImpl implements RentLogService {
     private RentLogDao rentLogDao;
 
     @Override
-    public void insertLog(String name, String cellPhone, int userID, String status, BigDecimal deltaMoney, String licensePlate) {
-        rentLogDao.insertLog(name, cellPhone, userID, status, deltaMoney, licensePlate);
+    public void insertLog(String name, String cellPhone, int userID,int carID, String status,
+                          BigDecimal deltaMoney, String licensePlate) {
+        rentLogDao.insertLog(name, cellPhone, userID, carID, status, deltaMoney, licensePlate);
     }
 
     @Override
@@ -33,5 +34,15 @@ public class RentLogImpl implements RentLogService {
     @Override
     public int selectUserRentLogCount(int userID) {
         return rentLogDao.selectUserRentLogCount(userID);
+    }
+
+    @Override
+    public List<RentLog> selectRentLog(int start, int limit) {
+        return rentLogDao.selectRentLog(start,limit);
+    }
+
+    @Override
+    public int selectRentLogCount() {
+        return rentLogDao.selectRentLogCount();
     }
 }

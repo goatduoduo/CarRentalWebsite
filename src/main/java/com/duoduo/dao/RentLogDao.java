@@ -15,6 +15,7 @@ public interface RentLogDao {
     public void insertLog(@Param("name") String name,
                           @Param("cellPhone") String cellPhone,
                           @Param("userID") int userID,
+                          @Param("carID") int carID,
                           @Param("status") String status,
                           @Param("deltaMoney") BigDecimal deltaMoney,
                           @Param("licensePlate") String licensePlate);
@@ -29,4 +30,10 @@ public interface RentLogDao {
 
     //查询数量
     public int selectUserRentLogCount(@Param("userID") int userID);
+
+    //查询所有日志
+    public List<RentLog> selectRentLog(@Param("start") int start,@Param("limit") int limit);
+
+    //查询数量
+    public int selectRentLogCount();
 }

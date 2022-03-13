@@ -124,7 +124,7 @@
                                                 <tr>
                                                     <td colspan=4 align=center>
                                                         <input type=button name=Submit5 value=返回 onClick="javascript:history.back()" />
-
+<%--todo设置判断逻辑以租车--%>
                                                         <c:if test="${ price.rentStatus=='available' && role==2 }">
                                                             <input type=button name=Submit52 value=预定租车 onClick="location.href='reserveadd.do?carid=${bean.carInfoId }';" />
 

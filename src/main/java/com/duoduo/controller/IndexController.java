@@ -208,7 +208,7 @@ public class IndexController {
 
         //完成支付并写入日志
         moneyService.payOrReturn(user.getID(),rentPrice.getDeposit());
-        //rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),"已预定",rentPrice.getDeposit(),car.getLicensePlate());
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),car.getCarInfoId(),"已预定",rentPrice.getDeposit(),car.getLicensePlate());
 
         //租赁状态更新
         carService.updateRentStatus(car.getCarInfoId(),user.getCellPhone(),user.getID(),"rented");
@@ -419,7 +419,7 @@ public class IndexController {
         //todo 如果还有租赁中的，不许注销
         //未提现到0也不可以哦
         //增加注销申请
-        rentLogService.insertLog(user.getName(),user.getCellPhone(), user.getID(), "申请注销", BigDecimal.valueOf(0),null);
+        rentLogService.insertLog(user.getName(),user.getCellPhone(), user.getID(),0, "申请注销", BigDecimal.valueOf(0),null);
         //return "accountCancellation";
     }
     //安全退出操作
@@ -639,7 +639,7 @@ public class IndexController {
         HttpSession session = request.getSession();
         User user=(User) session.getAttribute("qiantai");
         moneyService.payOrReturn(user.getID(),recharge.multiply(new BigDecimal(-1)));
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),"充值",recharge,"");
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"充值",recharge,"");
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
     }
     //提现
@@ -648,7 +648,7 @@ public class IndexController {
         HttpSession session = request.getSession();
         User user=(User) session.getAttribute("qiantai");
         moneyService.payOrReturn(user.getID(),impose.multiply(new BigDecimal(1)));
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),"提现",impose,"");
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"提现",impose,"");
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
     }
     //租车日志
@@ -662,14 +662,15 @@ public class IndexController {
         }
 
         //查询列表
-        List<Car> list = carService.selectBeanList((currentpage - 1)
-                * pageSize, pageSize,null);
+//        List<Car> list = carService.selectBeanList((currentpage - 1)
+//                * pageSize, pageSize,null);
+        List<RentLog> list=rentLogService.selectRentLog((currentpage - 1) * pageSize, pageSize);
 
         //列表返回页面
         request.setAttribute("list", list);
 
         //获取总数量
-        int total = carService.selectBeanCount(null);
+        int total = rentLogService.selectRentLogCount();
 
         //分页信息返回页面
         request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
@@ -679,9 +680,9 @@ public class IndexController {
         request.setAttribute("url", "carlist2.do");
 
         //添加，更新，删除等按钮
-        request.setAttribute("url2", "car");
+        request.setAttribute("url2", "carlist2.do");
 
-        request.setAttribute("title", "车辆管理");
+        request.setAttribute("title", "日志管理");
 
         return "logview";
     }
