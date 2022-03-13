@@ -7,7 +7,7 @@
 
 <html>
 <head>
-    <title>汽车详情</title>
+    <title>归还确认</title>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 
     <LINK href="qtimages/style.css" type=text/css rel=stylesheet>
@@ -79,58 +79,24 @@
 
                                             <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">
                                                 <tr>
-                                                    <td width='11%'>品牌：</td>
-                                                    <td width='39%'>${bean.brand }</td>
-                                                    <td width='11%'>颜色：</td>
-                                                    <td width='39%'>${bean.color }</td>
+                                                    <td width='11%'>日租：</td>
+                                                    <td width='39%'>${rentPrice.dailyRent }</td>
+                                                    <td width='11%'>押金：</td>
+                                                    <td width='39%'>${rentPrice.deposit }</td>
+                                                    <td width='11%'>保险：</td>
+                                                    <td width='39%'>${rentPrice.insurance }</td>
+                                                    <td width='11%'>手续：</td>
+                                                    <td width='39%'>${rentPrice.serviceCharge }</td>
 
                                                 </tr>
 
 
                                                 <tr>
-                                                    <td width='11%'>车牌号：</td><td width='39%'>${bean.licensePlate }</td>
-                                                    <td width='11%'>行驶证：</td><td width='39%'>${bean.drivingLicense }</td>
+                                                    <td width='11%'>总计支付：</td><td width='39%'>${total }</td>
                                                 </tr>
-
-                                                <tr>
-                                                    <td width='11%'>座位数：</td><td width='39%'>${bean.seats }</td>
-                                                    <td width='11%'>颜色：</td><td width='39%'>${bean.color }</td>
-                                                </tr>
-
-
-
-
-                                                <tr>
-                                                    <td width='11%' height="137">车辆图片：</td>
-                                                    <td colspan="3">
-
-                                                        <img src="${bean.picPath }" width="100" height="100" border="0" />
-
-
-
-                                                    </td>
-                                                    <td width='11%'>简介：</td><td width='39%'>${bean.info }</td>
-
-                                                </tr>
-
-                                                <tr>
-                                                    <td width='11%'>日租：</td><td width='39%'>${price.dailyRent }</td>
-                                                    <td width='11%'>押金：</td><td width='39%'>${price.deposit }</td>
-                                                    <td width='11%'>保险费：</td><td width='39%'>${price.insurance}</td>
-                                                    <td width='11%'>手续费：</td><td width='39%'>${price.serviceCharge }</td>
-                                                </tr>
-
-
-                                                <tr>
-                                                    <td colspan=4 align=center>
-                                                        <input type=button name=Submit5 value=返回 onClick="javascript:history.back()" />
-<%--todo设置判断逻辑以租车--%>
-                                                        <c:if test="${ price.rentStatus=='available' && role==2 }">
-                                                            <input type=button name=Submit52 value=预定租车 onClick="location.href='reserveadd.do?carid=${bean.carInfoId }';" />
-
-                                                        </c:if>
-                                                    </td>
-                                                </tr>
+                                            退还租金<input type=text name=depositBack value=5000 />
+                                            <input type=button name=Submit5 value=返回 onClick="javascript:history.back()" />
+                                            <input type=button name=Submit6 value=确认还车 href="carreturn2.do" />
                                             </table>
                                             </p>
                                         </TD>

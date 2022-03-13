@@ -58,4 +58,9 @@ public class CarServiceImpl implements CarService {
     public void insertBeanByID(int carID, String licensePlate, String brand, String drivingLicense, int carTypeId, String picPath, BigDecimal dailyRent, BigDecimal deposit, BigDecimal price, BigDecimal insurance, BigDecimal serviceCharge, String location, Date createTime,int seats, int info) {
         carDao.insertBeanByID(carID, licensePlate, brand, drivingLicense, carTypeId, picPath, dailyRent, deposit, price, insurance, serviceCharge,location,createTime,seats, info);
     }
+
+    @Override
+    public int selectUser(int carID) {
+        return carDao.selectUser(carID);
+    }
 }

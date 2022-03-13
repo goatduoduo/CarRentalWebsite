@@ -121,12 +121,12 @@
                                                     </tr>
                                                     <tr>
                                                         <td>客户姓名：</td>
-                                                        <td><input name='xingming' value="${user.name }" type='text' id='nameid' style="width: 300px;" />
+                                                        <td><input name='name' value="${user.name }" type='text' id='nameid' style="width: 300px;" />
                                                             &nbsp;*</td>
                                                     </tr>
                                                     <tr>
                                                         <td>联系电话：</td>
-                                                        <td><input name='dianhua' value="${user.cellPhone }" type='text' id='cellPhoneid' style="width: 300px;" />
+                                                        <td><input name='cellPhone' value="${user.cellPhone }" type='text' id='cellPhoneid' style="width: 300px;" />
                                                             &nbsp;*</td>
                                                     </tr>
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Maper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.duoduo.dao.RentStatusDao">
+    <resultMap id="rentStatusResultMap" type="com.duoduo.model.RentStatus">
+        <result property="carID" column="cID"/>
+        <result property="cellPhone" column="cellPhone"/>
+        <result property="userID" column="ID"/>
+        <result property="rentStatus" column="rentStatus"/>
+        <result property="name" column="name"/>
+        <result property="time" column="time"/>
+    </resultMap>
+
+    <select id="selectRented" resultMap="rentStatusResultMap">
+        select * from rentstatus where rentStatus='rented'
+    </select>
+
+    <select id="countRented" resultType="int">
+        select count(*) from rentstatus where rentStatus='rented'
+    </select>
+</mapper>

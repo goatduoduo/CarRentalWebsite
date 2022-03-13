@@ -14,8 +14,8 @@
     </resultMap>
 
     <insert id="insertLog">
-        insert into rentlog(name, cellPhone, ID, status,deltaMoney, licensePlate)
-        values (#{name},#{cellPhone},#{userID},#{status},#{deltaMoney},#{licensePlate})
+        insert into rentlog(name, cellPhone, ID,cID, status,deltaMoney, licensePlate,logTime)
+        values (#{name},#{cellPhone},#{userID},#{carID},#{status},#{deltaMoney},#{licensePlate},current_time)
     </insert>
 
     <select id="selectUserRentLog" resultMap="rentLogMap">
@@ -28,5 +28,17 @@
     <select id="selectUserRentLogCount" resultType="int">
         select count(*)
         from rentlog where ID=#{userID}
+    </select>
+
+    <select id="selectRentLog" resultMap="rentLogMap">
+        select logID,name,cellPhone,ID,logTime,status,licensePlate,-deltaMoney
+        from rentlog
+        order by logTime desc
+            limit #{start}, #{limit}
+    </select>
+
+    <select id="selectRentLogCount" resultType="int">
+        select count(*)
+        from rentlog
     </select>
 </mapper>

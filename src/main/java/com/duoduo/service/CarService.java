@@ -42,4 +42,7 @@ public interface CarService {
                                int carTypeId, String picPath, BigDecimal dailyRent, BigDecimal deposit,
                                BigDecimal price, BigDecimal insurance, BigDecimal serviceCharge, String location, Date createTime,
                                int seats, int info);
+
+    //选择租了这个车子的用户ID
+    public int selectUser(int carID);
 }

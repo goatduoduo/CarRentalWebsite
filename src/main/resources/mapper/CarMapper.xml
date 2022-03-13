@@ -82,4 +82,8 @@
         values(#{dailyRent},#{deposit},#{price},#{insurance},#{serviceCharge},#{carID});
         insert into rentstatus(cID,rentStatus) values(#{carID},'available');
     </insert>
+
+    <select id="selectUser" resultType="int">
+        select ID from rentStatus where cID=#{carID}
+    </select>
 </mapper>

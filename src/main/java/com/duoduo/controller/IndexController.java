@@ -36,6 +36,8 @@ public class IndexController {
     private ReservationService reservationService;
     @Resource
     private UserLicenseService userLicenseService;
+    @Resource
+    private RentStatusService rentStatusService;
 
     private int pageSize=12;
 
@@ -686,7 +688,70 @@ public class IndexController {
 
         return "logview";
     }
+    //人员列表
+    @RequestMapping("/carstatus.do")
+    public String carstatus(HttpServletRequest request,String pagenum,String username){
 
+        //分页功能默认第一页
+        int currentpage = 1;
+        //获取当前页
+        if (pagenum != null) {
+            currentpage = Integer.parseInt(pagenum);
+        }
+
+        //查询列表
+        List<RentStatus> list=rentStatusService.selectRented((currentpage - 1)
+                * pageSize, pageSize);
+
+        //列表返回页面
+        request.setAttribute("list", list);
+
+        //获取总数量
+        int total = rentStatusService.countRented();
+
+        //分页信息返回页面
+        request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
+                currentpage, "userlist.do", "共有" + total + "条记录"));
+
+        //确认归还按钮
+        request.setAttribute("url", "userlist.do");
+
+        request.setAttribute("title", "人员管理");
+
+        return "carstatus";
+
+    }
+    @RequestMapping("/carreturn.do")
+    public String carreturn(HttpServletRequest request,HttpServletResponse response,int carID,int userID,Date time){
+        RentPrice rentPrice=rentPriceService.selectPriceById(carID);
+        List<PriceChange> priceChange=rentPriceService.selectDeltaPriceById(carID);
+        //计算需要的钱
+        BigDecimal price=getPrice(rentPrice,priceChange);
+        request.setAttribute("rentPrice",rentPrice);
+        request.setAttribute("total",price);
+        return "carreturn";
+    }
+    //确认归还
+    @RequestMapping("/carreturn2.do")
+    public void carreturn2(HttpServletRequest request,HttpServletResponse response){
+        PrintWriter writer = this.getPrintWriter(response);
+        RentPrice rentPrice=(RentPrice) request.getAttribute("rentPrice") ;
+        BigDecimal price=(BigDecimal) request.getAttribute("total");
+        BigDecimal back=(BigDecimal) request.getAttribute("depositBack");
+        int userID=carService.selectUser(rentPrice.getCarInfoId());
+        User user=userService.selectBeanById(userID);
+        moneyService.payOrReturn(userID,price);
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),userID,rentPrice.getCarInfoId(),"支付金钱",price,null);
+        moneyService.payOrReturn(userID,back.multiply(new BigDecimal(-1)));
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),userID,rentPrice.getCarInfoId(),"退还押金",back,null);
+        carService.updateRentStatus(rentPrice.getCarInfoId(),null,0,"available");
+        writer.print("<script language=javascript>alert('还车成功');window.location.href='carreturn.do';</script>");
+    }
+
+    public BigDecimal getPrice(RentPrice rentPrice,List<PriceChange> priceChange){
+        //todo 插入价格计算算法
+        return new BigDecimal(1000);
+    }
     // 获取输出对象
     public PrintWriter getPrintWriter(HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");

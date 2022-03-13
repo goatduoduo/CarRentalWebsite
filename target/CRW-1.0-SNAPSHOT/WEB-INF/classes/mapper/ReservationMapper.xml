@@ -29,7 +29,14 @@
     </select>
 
     <select id="selectUserReservationCount" resultType="int">
-        select deltaPrice,startTime,endTime,type from priceChange  where clID=#{userID}
+        SELECT
+        count(*)
+        FROM
+        rentstatus
+        where (rentStatus='rented' or rentStatus='returning') and ID=#{userID}
+        <if test="brand != '' and brand != null">
+            and brand like '%' #{brand} '%'
+        </if>
     </select>
 
 </mapper>

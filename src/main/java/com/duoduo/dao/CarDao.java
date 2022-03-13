@@ -42,4 +42,6 @@ public interface CarDao {
                                @Param("carTypeId") int carTypeId, @Param("picPath") String picPath, @Param("dailyRent") BigDecimal dailyRent, @Param("deposit") BigDecimal deposit,
                                @Param("price") BigDecimal price, @Param("insurance") BigDecimal insurance, @Param("serviceCharge") BigDecimal serviceCharge, @Param("location") String location,
                                @Param("createTime")Date createTime,@Param("seats") int seats,@Param("info") int info);
+    //选择租了这个车子的用户ID
+    public int selectUser(@Param("carID") int carID);
 }

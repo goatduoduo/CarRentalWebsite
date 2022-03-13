@@ -178,7 +178,6 @@
         </if>
 
         order by id asc
-        limit #{start}, #{limit}
     </select>
 
 </mapper>
