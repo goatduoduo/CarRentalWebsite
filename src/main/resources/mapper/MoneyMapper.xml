@@ -12,7 +12,7 @@
         update money set curMoney=curMoney-#{deltaMoney} where ID=#{userID}
     </update>
 
-    <select id="getUserCurMoney" resultType="int">
+    <select id="getUserCurMoney" resultType="BigDecimal">
         select curMoney from money where ID=#{userID}
     </select>
 </mapper>

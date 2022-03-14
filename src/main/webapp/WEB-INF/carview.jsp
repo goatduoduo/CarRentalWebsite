@@ -80,21 +80,21 @@
                                             <table width="100%" border="1" align="center" cellpadding="3" cellspacing="1" bordercolor="#00FFFF" style="border-collapse:collapse">
                                                 <tr>
                                                     <td width='11%'>品牌：</td>
-                                                    <td width='39%'>${bean.brand }</td>
+                                                    <td width='20%'>${bean.brand }</td>
                                                     <td width='11%'>颜色：</td>
-                                                    <td width='39%'>${bean.color }</td>
+                                                    <td width='20%'>${bean.color }</td>
 
                                                 </tr>
 
 
                                                 <tr>
-                                                    <td width='11%'>车牌号：</td><td width='39%'>${bean.licensePlate }</td>
-                                                    <td width='11%'>行驶证：</td><td width='39%'>${bean.drivingLicense }</td>
+                                                    <td width='11%'>车牌号：</td><td width='20%'>${bean.licensePlate }</td>
+                                                    <td width='11%'>行驶证：</td><td width='20%'>${bean.drivingLicense }</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td width='11%'>座位数：</td><td width='39%'>${bean.seats }</td>
-                                                    <td width='11%'>颜色：</td><td width='39%'>${bean.color }</td>
+                                                    <td width='11%'>座位数：</td><td width='20%'>${bean.seats }</td>
+                                                    <td width='11%'>取车/还车地点：</td><td width='20%'>${bean.locaton }</td>
                                                 </tr>
 
 
@@ -114,10 +114,10 @@
                                                 </tr>
 
                                                 <tr>
-                                                    <td width='11%'>日租：</td><td width='39%'>${price.dailyRent }</td>
-                                                    <td width='11%'>押金：</td><td width='39%'>${price.deposit }</td>
-                                                    <td width='11%'>保险费：</td><td width='39%'>${price.insurance}</td>
-                                                    <td width='11%'>手续费：</td><td width='39%'>${price.serviceCharge }</td>
+                                                    <td width='11%'>日租：</td><td >${price.dailyRent }</td>
+                                                    <td width='11%'>押金：</td><td >${price.deposit }</td>
+                                                    <td width='11%'>保险费：</td><td >${price.insurance}</td>
+                                                    <td width='11%'>手续费：</td><td >${price.serviceCharge }</td>
                                                 </tr>
 
 

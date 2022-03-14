@@ -74,6 +74,7 @@
 											<li><a href="loginout.do">退出登录</a></li>
 											<li class="divider"></li>
 											<li><a href="accountCancellation.do">注销账号</a></li>
+											<li class="divider"></li>
 										</ul> </a> </strong></td>
 
 						</c:if>
@@ -85,8 +86,8 @@
 									class="STYLE1">发布车辆</span></a></strong></td>
 							<td align="center"><strong><a href="licenseexamine.do?status=1"><span
 									class="STYLE1">证件审核</span></a></strong></td>
-							<td align="center"><strong><a href="jilulist.do"><span
-									class="STYLE1">流程确认</span></a></strong></td>
+							<td align="center"><strong><a href="carstatus.do"><span
+									class="STYLE1">还车确认</span></a></strong></td>
 							<td align="center"><strong class=" dropdown"><a
 									href="#" class=" dropdown-toggle" data-toggle="dropdown"><font
 									class=" dropdown STYLE1">信息管理</font><b class="caret"></b>
@@ -96,6 +97,7 @@
 									<li><a href="userlist.do">用户管理</a></li>
 									<li class="divider"></li>
 									<li><a href="logview.do">租车日志</a></li>
+									<li class="divider"></li>
 									<li><a href="loginout.do">退出登录</a></li>
 									<li class="divider"></li>
 								</ul> </a> </strong></td>

@@ -7,11 +7,30 @@
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML><HEAD>
-    <META http-equiv=Content-Type content="text/html; charset=gb2312">
-    <LINK href="css/admin.css" type="text/css" rel="stylesheet">
+<HTML>
+<head>
+    <title>汽车租赁网站</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-</HEAD>
+    <LINK href="qtimages/style.css" type=text/css rel=stylesheet>
+
+    <style type="text/css">
+        <!--
+        .STYLE2 {	color: #0066CC;
+            font-weight: bold;
+        }
+        -->
+    </style>
+    <style type="text/css">
+        <!--
+        .STYLE1 {color: #FFFFFF}
+        .STYLE5 {color: #CCFFCC;
+            font-size: 26pt;
+        }
+        .STYLE6 {color: #288848}
+        -->
+    </style>
+</head>
 <BODY>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
     <TR height=28>
@@ -22,7 +41,11 @@
         <TD background=images/shadow_bg.jpg></TD></TR></TABLE>
 
 <%@ include file="qttop.jsp"%>
-
+<TABLE height=8 cellSpacing=0 cellPadding=0 width=1002 align=center
+       bgColor=#ffffff border=0>
+    <TBODY>
+    <TR>
+        <TD></TD></TR></TBODY></TABLE>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=1>
 
     <TR >

@@ -111,6 +111,7 @@
                                                 <td>车牌号</td>
                                                 <td>时间</td>
                                                 <td>状态</td>
+                                                <td>收支（负数为支出）</td>
 
 
 
@@ -125,7 +126,7 @@
                                                     <td>${bean.logTime }</td>
 
                                                     <td>${bean.status }</td>
-
+                                                    <td>${bean.deltaMoney }</td>
                                                 </tr>
 
                                             </c:forEach>

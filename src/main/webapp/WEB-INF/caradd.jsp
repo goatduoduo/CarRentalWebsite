@@ -89,7 +89,7 @@
     <TABLE cellSpacing=0 cellPadding=0 width="80%" align=center border=1>
 
         <TR height=>
-            <TD align="center" >车牌号:</TD>
+            <TD align="center" size="25" >车牌号:</TD>
             <TD align="center">
                 <input  type="text" name="licensePlate"  id='licensePlateid'  size="50"   />
 
@@ -97,7 +97,7 @@
         </TR>
 
         <TR height=>
-            <TD align="center" >品牌:</TD>
+            <TD align="center" size="25">品牌:</TD>
             <TD align="center">
                 <input  type="text" name="brand"  id='brandid'  size="50"  />
 
@@ -105,14 +105,14 @@
         </TR>
 
         <TR height=>
-            <TD align="center" >行驶证号:</TD>
+            <TD align="center" size="25">行驶证号:</TD>
             <TD align="center">
                 <input  type="text" name="drivingLicense"  id='drivingLicenseid'  size="50"  />
 
             </TD>
         </TR>
         <TR height=>
-            <TD align="center" >出厂日期:</TD>
+            <TD align="center" size="25">出厂日期:</TD>
             <TD align="center">
                 <input  type="date" name="createTime"  id='ctimeid'  size="50"  />
 
@@ -120,7 +120,7 @@
         </TR>
 
         <TR height=>
-            <TD align="center" >型号:</TD>
+            <TD align="center" size="25">型号:</TD>
             <TD align="center">
                 <select name="carTypeId" >
                     <option value="1" selected="selected">经济型</option>
@@ -138,7 +138,7 @@
         </TR>
 
         <TR height=>
-            <TD align="center" >车辆图片:</TD>
+            <TD align="center" size="25">车辆图片:</TD>
             <TD align="center">
                 <input name="prodFile"  type="file"  id='uploadfileid'  size="50"  />
 
@@ -146,27 +146,27 @@
         </TR>
 
         <TR height=>
-            <TD align="center" >日租报价:</TD>
+            <TD align="center" size="25">日租报价:</TD>
             <TD align="center">
                 <input  type="text" name="dailyRent"  id='dailyRentid'  size="50"  />
 
             </TD>
-            <TD align="center" >押金:</TD>
+            <TD align="center" size="25">押金:</TD>
             <TD align="center">
                 <input  type="text" name="deposit"  id='depositid'  size="50"  />
 
             </TD>
-            <TD align="center" >整车价格:</TD>
+            <TD align="center" size="25">整车价格:</TD>
             <TD align="center">
                 <input  type="text" name="price"  id='priceid'  size="50"  />
 
             </TD>
-            <TD align="center" >车保:</TD>
+            <TD align="center" size="25">车保:</TD>
             <TD align="center">
                 <input  type="text" name="insurance"  id='insuranceid'  size="50"  />
 
             </TD>
-            <TD align="center" >手续费:</TD>
+            <TD align="center" size="25">手续费:</TD>
             <TD align="center">
                 <input  type="text" name="serviceCharge"  id='serviceChargeid'  size="50"  />
 
@@ -178,14 +178,14 @@
 
 
         <TR height=>
-            <TD align="center" >租车地点:</TD>
+            <TD align="center" size="25">租车地点:</TD>
             <TD align="center">
                 <input  type="text" name="location"  id='locationid'  size="50"  />
 
             </TD>
         </TR>
         <TR height=>
-            <TD align="center" >座位数:</TD>
+            <TD align="center" size="25">座位数:</TD>
             <TD align="center">
                 <input  type="text" name="seats"  id='seatsid'  size="50"  />
 
@@ -193,7 +193,7 @@
         </TR>
 
         <TR height=>
-            <TD align="center" >颜色:</TD>
+            <TD align="center" size="25">颜色:</TD>
             <TD align="center">
                 <input  type="text" name="color"  id='colorid'  size="50"  />
 
@@ -201,7 +201,7 @@
         </TR>
 
         <TR height=>
-            <TD align="center" >简介:</TD>
+            <TD align="center" size="25">简介:</TD>
             <TD align="center">
                 <input  type="text" name="info"  id='infoid'  size="50"  />
 

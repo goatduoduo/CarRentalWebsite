@@ -114,7 +114,7 @@
 
                                                 <td>车辆ID</td>
                                                 <td>用户ID</td>
-                                                <td>姓名</td>
+<%--                                                <td>姓名</td>--%>
                                                 <td>手机号</td>
                                                 <td>租赁时间</td>
                                                 <td>操作</td>
@@ -129,7 +129,7 @@
 
                                                     <td>${bean.carID }</td>
                                                     <td>${bean.userID }</td>
-                                                    <td>${bean.name }</td>
+<%--                                                    <td>${bean.name }</td>--%>
                                                     <td>${bean.cellPhone }</td>
                                                     <td>${bean.time }</td>
                                                     <td><a href="carview.do?id=${bean.carID }" class="btn btn-danger">汽车详情</a>

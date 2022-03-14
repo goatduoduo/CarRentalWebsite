@@ -257,7 +257,7 @@ public class IndexController {
         request.setAttribute("title", "我的预定");
 
 
-        return "reserveList.jsp";
+        return "reserveList";
 
     }
 
@@ -310,15 +310,15 @@ public class IndexController {
             currentpage = Integer.parseInt(pagenum);
         }
         //查询
-        //List<RentLog> list=rentLogService.selectUserRentLog(user.getID(),(currentpage-1)*pageSize,pageSize);
+        List<RentLog> list=rentLogService.selectUserRentLog(user.getID(),(currentpage-1)*pageSize,pageSize);
         //获取总数量
-        //int total = rentLogService.selectUserRentLogCount(user.getID());
+        int total = rentLogService.selectUserRentLogCount(user.getID());
         //列表返回页面
-        //request.setAttribute("list", list);
+        request.setAttribute("list", list);
 
         //分页信息返回页面
-        //request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
-        //        currentpage, "reserveList.do", "共有" + total + "条记录"));
+        request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
+                currentpage, "reserveList.do", "共有" + total + "条记录"));
 
 
         request.setAttribute("title", "我的预定");
@@ -433,7 +433,7 @@ public class IndexController {
         HttpSession session = request.getSession();
         session.removeAttribute("qiantai");
 
-        writer.print("<script language=javascript>alert('退出成功');window.location.href='.';</script>");
+        writer.print("<script language=javascript>alert('退出成功');window.location.href='index.do';</script>");
 
 
     }

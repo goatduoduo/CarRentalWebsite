@@ -31,7 +31,7 @@
     </select>
 
     <select id="selectRentLog" resultMap="rentLogMap">
-        select logID,name,cellPhone,ID,logTime,status,licensePlate,-deltaMoney
+        select logID,name,cellPhone,ID,logTime,status,licensePlate,-deltaMoney  'deltaMoney'
         from rentlog
         order by logTime desc
             limit #{start}, #{limit}

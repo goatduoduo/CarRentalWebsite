@@ -116,9 +116,9 @@
                                                     <td><span class="text-danger " ><bold >${bean.seats }</bold></span></td>
                                                     <td>${bean.color }</td>
 
-                                                    <td><a href="${url2 }view.do?id=${bean.id }">查看详情</a>
-                                                        <a href="${url2 }update.do?id=${bean.id }"><span style="font-size: 12px;">更新</span></a>
-                                                        <a href="${url2 }delete.do?id=${bean.id }" onclick="return confirm('确定要删除吗?'); ">
+                                                    <td><a href="${url2 }view.do?id=${bean.carInfoId }">查看详情</a>
+                                                        <a href="${url2 }update.do?id=${bean.carInfoId }"><span style="font-size: 12px;">更新</span></a>
+                                                        <a href="${url2 }delete.do?id=${bean.carInfoId }" onclick="return confirm('确定要删除吗?'); ">
 <%--                                                            todo 增加针对价格变化的--%>
                                                         &nbsp;&nbsp;&nbsp;
                                                         <input

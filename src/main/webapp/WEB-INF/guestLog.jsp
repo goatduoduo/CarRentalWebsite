@@ -85,9 +85,7 @@
                         <td >支出（负数为收入）</td>
 
 
-                        <td >
-                          操作
-                        </td>
+
 
 
 
@@ -101,6 +99,7 @@
                           <td >${bean.name }</td>
                           <td >${bean.cellPhone }</td>
                           <td >${bean.status }</td>
+                          <td >${bean.logTime }</td>
                           <td >${bean.deltaMoney}</td>
                         </tr>
 

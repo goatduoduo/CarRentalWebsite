@@ -65,7 +65,7 @@
 
     <update id="updateRentStatus">
         update rentstatus
-        set cellPhone=#{cellPhone},userID=#{userID},rentStatus=#{rentStatus}
+        set cellPhone=#{cellPhone},ID=#{userID},rentStatus=#{rentStatus}
         where cID=#{cID}
     </update>
 
@@ -82,4 +82,8 @@
         values(#{dailyRent},#{deposit},#{price},#{insurance},#{serviceCharge},#{carID});
         insert into rentstatus(cID,rentStatus) values(#{carID},'available');
     </insert>
+
+    <select id="selectUser" resultType="int">
+        select ID from rentStatus where cID=#{carID}
+    </select>
 </mapper>
