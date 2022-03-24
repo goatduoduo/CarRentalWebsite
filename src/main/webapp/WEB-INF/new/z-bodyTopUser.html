@@ -1,0 +1,64 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<div class="mdui-drawer" id="menu-drawer" style="width: 240px;">
+    <div class="mdui-list">
+        <a class="mdui-list-item mdui-ripple" id="home" href="/">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">首页</div>
+        </a>
+        <div class="mdui-subheader">租车</div>
+        <a class="mdui-list-item mdui-ripple" id="apk" href="carlist.do">
+            <i class="mdui-list-item-icon mdui-icon material-icons">directions_car</i>
+            <div class="mdui-list-item-content">所有车辆</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple" id="update" href="reserveList.do">
+            <i class="mdui-list-item-icon mdui-icon material-icons">call_to_action</i>
+            <div class="mdui-list-item-content">我的预定</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple" id="passage" href="guestLog.do">
+            <i class="mdui-list-item-icon mdui-icon material-icons">library_books</i>
+            <div class="mdui-list-item-content">租车日志</div>
+        </a>
+        <div class="mdui-subheader">个人</div>
+        <a class="mdui-list-item mdui-ripple"
+           href="userupdate.do" target="_blank">
+            <i class="mdui-list-item-icon mdui-icon material-icons">edit</i>
+            <div class="mdui-list-item-content">信息编辑</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple"
+           href="usermoney.do" target="_blank">
+            <i class="mdui-list-item-icon mdui-icon material-icons">attach_money</i>
+            <div class="mdui-list-item-content">个人财务</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple"
+           href="loginout.do" target="_blank">
+            <i class="mdui-list-item-icon mdui-icon material-icons">exit_to_app</i>
+            <div class="mdui-list-item-content">退出登录</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple"
+           href="accountCancellation.do" target="_blank">
+            <i class="mdui-list-item-icon mdui-icon material-icons">remove_circle_outline</i>
+            <div class="mdui-list-item-content mdui-text-color-grey">申请注销</div>
+        </a>
+    </div>
+    <div class="drawer-bottom-text">
+        汽车租赁网站 2.0.0
+    </div>
+</div>
+<div class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-toolbar-hide mdui-shadow-0" id="appbar">
+    <div class="mdui-toolbar">
+        <a href="javascript:" id="menu-btn" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <span class="mdui-typo-title">汽车租赁网站</span>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a id="appbar-search" href="javascript:" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">search</i>
+        </a>-->
+        <a id="appbar-avatar"  class="mdui-btn .mdui-col-xs-3">
+            <i id="appbar-avatar-icon" class="mdui-icon material-icons">account_circle</i>
+            <img id="appbar-avatar-img" style="display: none" class="mdui-icon material-icons" src="" alt="">
+            <c:if test="${qiantai!=null && role==2}">
+                <span class="mdui-text-color-white-100">${username}</span>
+            </c:if>
+        </a>
+    </div>
+</div>

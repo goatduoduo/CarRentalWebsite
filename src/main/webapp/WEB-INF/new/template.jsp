@@ -19,73 +19,73 @@
 </head>
 <body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-layout-auto">
 <div class="mdui-container">
-    <%@ include file="z-bodyTop.html"%>
+    <%@ include file="z-bodyTopUser.html"%>
     <div class="mdui-row mdui-row-gapless mdui-m-a-1" >
         <div class="mdui-col-xs-4">这是主界面</div>
     </div>
     <div class="mdui-row">
-        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3">
-            <a href="/apk">
+        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
+            <a href="carlist.do">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
-                        <img src="https://cdn.cocservice.top/homepage/apkdownload.jpg" alt="安装包下载"/>
+                        <img src="../../img/carList.jpg" alt="汽车查询"/>
                     </div>
                     <div class="mdui-card-primary">
-                        <div class="mdui-card-primary-title">安装包下载</div>
-                        <div class="mdui-card-primary-subtitle">各渠道商版本下载</div>
+                        <div class="mdui-card-primary-title">汽车查询</div>
+                        <div class="mdui-card-primary-subtitle">根据条件查询或租赁汽车</div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3">
-            <a href="/update">
+        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
+            <a href="reserveList.do">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
-                        <img src="https://cdn.cocservice.top/homepage/update_data.jpg" alt="升级数据"/>
+                        <img src="../../img/carList.jpg" alt="我的预定"/>
                     </div>
                     <div class="mdui-card-primary">
-                        <div class="mdui-card-primary-title">升级数据</div>
-                        <div class="mdui-card-primary-subtitle">游戏数据一览无余</div>
+                        <div class="mdui-card-primary-title">我的预定</div>
+                        <div class="mdui-card-primary-subtitle">查看目前我预定的汽车</div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3">
-            <a href="/p">
+        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
+            <a href="guestLog.do">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
-                        <img src="https://cdn.cocservice.top/homepage/passages.jpg" alt="攻略教程"/>
+                        <img src="../../img/carList.jpg" alt="租车日志"/>
                     </div>
                     <div class="mdui-card-primary">
-                        <div class="mdui-card-primary-title">攻略教程</div>
-                        <div class="mdui-card-primary-subtitle">收录优质内容</div>
+                        <div class="mdui-card-primary-title">租车日志</div>
+                        <div class="mdui-card-primary-subtitle">查看我的租车记录</div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3">
-            <a href="/sponsor">
+        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
+            <a href="userupdate.do">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
-                        <img src="https://cdn.cocservice.top/homepage/spons.jpg" alt="付费服务&联系作者"/>
+                        <img src="../../img/carList.jpg" alt="编辑信息"/>
                     </div>
                     <div class="mdui-card-primary">
-                        <div class="mdui-card-primary-title">付费服务&联系作者</div>
-                        <div class="mdui-card-primary-subtitle">账号交易、代充等广告</div>
+                        <div class="mdui-card-primary-title">编辑信息</div>
+                        <div class="mdui-card-primary-subtitle">编辑个人信息</div>
                     </div>
                 </div>
             </a>
         </div>
-        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3">
-            <a href="https://www.yuque.com/books/share/7a36c5ba-3c5e-492b-82c6-38fa813f9367" target="_blank"
+        <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
+            <a href="usermoney.do" target="_blank"
                rel="nofollow">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
-                        <img src="https://cdn.cocservice.top/homepage/base_design.jpg" alt="阵型收录"/>
+                        <img src="../../img/carList.jpg" alt="财务管理"/>
                     </div>
                     <div class="mdui-card-primary">
-                        <div class="mdui-card-primary-title">阵型收录</div>
-                        <div class="mdui-card-primary-subtitle">晴天阵型收集</div>
+                        <div class="mdui-card-primary-title">财务管理</div>
+                        <div class="mdui-card-primary-subtitle">充值或提现并查看自己的流水</div>
                     </div>
                 </div>
             </a>
