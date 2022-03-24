@@ -25,4 +25,8 @@ public class UserController {
         }
         return "hello";
     }
+    @RequestMapping("/index.do")
+    public String testindex(){
+        return "/new/template";
+    }
 }
