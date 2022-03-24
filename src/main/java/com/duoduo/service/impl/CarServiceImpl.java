@@ -2,6 +2,7 @@ package com.duoduo.service.impl;
 
 import com.duoduo.dao.CarDao;
 import com.duoduo.model.Car;
+import com.duoduo.model.CarBrief;
 import com.duoduo.service.CarService;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,16 @@ public class CarServiceImpl implements CarService {
     @Override
     public int selectBeanCount(Car car) {
         return carDao.selectBeanCount(car);
+    }
+
+    @Override
+    public List<CarBrief> selectBriefList(int start, int limit, String brand, String carTypeId, BigDecimal min, BigDecimal max) {
+        return carDao.selectBriefList(start, limit, brand, carTypeId, min, max);
+    }
+
+    @Override
+    public int selectBriefCount(String brand, String carTypeId, BigDecimal min, BigDecimal max) {
+        return carDao.selectBriefCount(brand, carTypeId, min, max);
     }
 
     @Override

@@ -76,24 +76,24 @@
                         </TABLE>
 
                         <form action="${url }" method="post">
-                            品牌:<input name="pinpai" type="text" value="${pinpai }" /> &nbsp;&nbsp;  型号:<%-- <input
+                        品牌:<input name="pinpai" type="text" value="${pinpai }" /> &nbsp;&nbsp;  型号:<%-- <input
 											name="xinghao" type="text" value="${xinghao }" /> --%>
-                            <select name="carTypeId" >
-                                <option value="1" selected="selected">经济型</option>
-                                <option value="2">纯电动</option>
-                                <option value="3">舒适型</option>
-                                <option value="4" >SUV</option>
-                                <option value="5" >商务车</option>
-                                <option value="6" >豪华型</option>
-                                <option value="7" >跑车</option>
-                                <option value="8" >房车</option>
-                                <option value="9" >特殊</option>
-                            </select>
-                            &nbsp;&nbsp; 颜色:<input
-                                name="yanse" type="text" value="${yanse }" /> <input
-                                value="搜索" type="submit" />
+                        <select name="carTypeId" >
+                            <option value="1" selected="selected">经济型</option>
+                            <option value="2">纯电动</option>
+                            <option value="3">舒适型</option>
+                            <option value="4" >SUV</option>
+                            <option value="5" >商务车</option>
+                            <option value="6" >豪华型</option>
+                            <option value="7" >跑车</option>
+                            <option value="8" >房车</option>
+                            <option value="9" >特殊</option>
+                        </select>
+                        &nbsp;&nbsp; 颜色:<input
+                            name="yanse" type="text" value="${yanse }" /> <input
+                            value="搜索" type="submit" />
 
-                        </form>
+                    </form>
 
                         <TABLE
                                 style="BACKGROUND-POSITION: 50% top; BACKGROUND-REPEAT: repeat-x"
@@ -124,7 +124,7 @@
 
                                             </tr>
 
-                                            <c:forEach items="${list}" var="bean">
+                                    <c:forEach items="${list}" var="bean">
 
                                                 <tr>
 

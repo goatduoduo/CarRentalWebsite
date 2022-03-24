@@ -1,6 +1,7 @@
 package com.duoduo.dao;
 
 import com.duoduo.model.Car;
+import com.duoduo.model.CarBrief;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -44,4 +45,10 @@ public interface CarDao {
                                @Param("createTime")Date createTime,@Param("seats") int seats,@Param("info") int info);
     //选择租了这个车子的用户ID
     public int selectUser(@Param("carID") int carID);
+
+    //按条件查询车辆简要 支持分页
+    public List<CarBrief> selectBriefList(@Param("start") int start, @Param("limit") int limit,  @Param("brand") String brand,@Param("carTypeId") String carTypeId,@Param("min") BigDecimal min,@Param("max") BigDecimal max);
+
+    //按条件查询车辆简要 num
+    public int selectBriefCount( @Param("brand") String brand,@Param("carTypeId") String carTypeId,@Param("min") BigDecimal min,@Param("max") BigDecimal max);
 }

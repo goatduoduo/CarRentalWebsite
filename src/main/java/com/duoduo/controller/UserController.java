@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -52,26 +53,26 @@ public class UserController {
     }
     @RequestMapping("/index.do")
     public String testindex(){
-        return "/new/template";
+        return "/new/userIndex";
     }
     //车辆列表
     @RequestMapping("/carlist.do")
-    public String carlist(HttpServletRequest request, String pagenum, Car bean){
+    public String carlist(HttpServletRequest request, String pagenum, String brand,String carTypeId,String DailyRent){
 
-        //查询条件返回页面
-        if (bean.getBrand() != null && !"".equals(bean.getBrand())) {
-
-            request.setAttribute("brand", bean.getBrand());
-        }
-
-        if (bean.getCarTypeId() >=0) {
-
-            request.setAttribute("ctId", bean.getCarTypeId());
-        }
-        if (bean.getColor() != null && !"".equals(bean.getColor() )) {
-
-            request.setAttribute("color", bean.getColor() );
-        }
+//        //查询条件返回页面
+//        if (bean.getBrand() != null && !"".equals(bean.getBrand())) {
+//
+//            request.setAttribute("brand", bean.getBrand());
+//        }
+//
+//        if (bean.getCarTypeId() >=0) {
+//
+//            request.setAttribute("ctId", bean.getCarTypeId());
+//        }
+//        if (bean.getColor() != null && !"".equals(bean.getColor() )) {
+//
+//            request.setAttribute("color", bean.getColor() );
+//        }
 
         //分页功能默认第一页
         int currentpage = 1;
@@ -79,15 +80,19 @@ public class UserController {
         if (pagenum != null) {
             currentpage = Integer.parseInt(pagenum);
         }
-
+        if(brand=="") brand=null;
+        if(carTypeId=="") carTypeId=null;
+        //todo 中文乱码问题暂未解决，记得编辑一下最小值和最大值
         //查询列表
-        List<Car> list = carService.selectBeanList((currentpage - 1)* pageSize, pageSize, bean);
+        BigDecimal min=new BigDecimal(0);
+        BigDecimal max=new BigDecimal(10000);
+        List<CarBrief> list=carService.selectBriefList((currentpage - 1)* pageSize, pageSize,brand,carTypeId,min,max);
 
         //列表返回页面
         request.setAttribute("list", list);
 
         //获取总数量
-        int total = carService.selectBeanCount(bean);
+        int total = carService.selectBriefCount(brand,carTypeId,min,max);
 
         //分页信息返回页面
         request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
@@ -97,7 +102,7 @@ public class UserController {
         request.setAttribute("title", "车辆");
 
 
-        return "carlist";
+        return "/new/carlist";
 
     }
     @RequestMapping("/carview.do")
@@ -364,7 +369,7 @@ public class UserController {
         HttpSession session = request.getSession();
         session.removeAttribute("qiantai");
 
-        writer.print("<script language=javascript>alert('退出成功');window.location.href='index.do';</script>");
+        writer.print("<script language=javascript>window.location.href='index.do';</script>");
 
 
     }
@@ -396,6 +401,43 @@ public class UserController {
         rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"提现",impose,"");
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
     }
+    @RequestMapping("/login.do")
+    public String login(HttpServletRequest request){
+
+        request.setAttribute("title", "用户登录");
+
+        return "new/login";
+
+    }
+    //用户登录操作
+    @RequestMapping("/login2.do")
+    public void login2(HttpServletRequest request, HttpServletResponse response, String username, String password){
+
+        PrintWriter writer = this.getPrintWriter(response);
+
+
+        User bean = userService.userlogin(username, password);
+
+
+
+        if(bean==null){
+
+            writer.print("<script language=javascript>alert('用户名或者密码错误，登录失败！');window.location.href='login.do';</script>");
+
+
+        }else{
+
+            HttpSession session = request.getSession();
+            session.setAttribute("qiantai", bean);
+            session.setAttribute("username", bean.getUserName());
+            session.setAttribute("role",bean.getRole());
+
+
+            writer.print("<script language=javascript>window.location.href='index.do';</script>");
+
+        }
+
+    }
     // 获取输出对象
     public PrintWriter getPrintWriter(HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
@@ -408,5 +450,42 @@ public class UserController {
         }
 
         return writer;
+    }
+    //来注册吧！
+    @RequestMapping("/register.do")
+    public String register(HttpServletRequest request){
+
+        request.setAttribute("title", "用户注册");
+
+        return "register";
+
+    }
+    //用户注册操作
+    @RequestMapping("/register2.do")
+    public void register2(HttpServletRequest request,HttpServletResponse response,User user){
+        //当表单中组件的 name 和对象的属性名一致时 可以在controller  方法的参数中 写一个对应的对应，spring会自动封装成一个对象
+        PrintWriter writer = this.getPrintWriter(response);
+        if(userService.existCellphone(user.getCellPhone())>0){
+
+            writer.print("<script language=javascript>alert('该手机号已被注册，注册失败！');window.location.href='register.do';</script>");
+
+            return;
+        }
+
+        if(userService.existIdentity(user.getIdentity())>0){
+
+            writer.print("<script language=javascript>alert('该身份证已经存在，注册失败！');window.location.href='register.do';</script>");
+
+            return;
+        }
+        Date date=new Date(System.currentTimeMillis());
+        user.setCreateTime(date);
+        user.setRole(2);
+
+        userService.insertBean(user);
+
+        writer.print("<script language=javascript>alert('注册成功');window.location.href='login.do';</script>");
+
+
     }
 }

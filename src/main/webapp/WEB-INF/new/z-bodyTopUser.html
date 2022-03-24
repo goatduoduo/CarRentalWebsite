@@ -59,6 +59,18 @@
             <c:if test="${qiantai!=null && role==2}">
                 <span class="mdui-text-color-white-100">${username}</span>
             </c:if>
+            <c:if test="${qiantai==null}">
+                <span class="mdui-text-color-white-100" >未登录</span>
+            </c:if>
         </a>
+        <c:if test="${qiantai==null}">
+            <a href="login.do">
+                <button class="mdui-btn mdui-ripple" >登录</button>
+            </a>
+            <a href="register.do">
+                <button class="mdui-btn mdui-ripple" >注册</button>
+            </a>
+
+        </c:if>
     </div>
 </div>

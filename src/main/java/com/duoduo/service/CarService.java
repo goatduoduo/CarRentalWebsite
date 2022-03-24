@@ -1,6 +1,7 @@
 package com.duoduo.service;
 
 import com.duoduo.model.Car;
+import com.duoduo.model.CarBrief;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +31,12 @@ public interface CarService {
 
     //按条件查询列表数量
     public int selectBeanCount(Car car);
+
+    //按条件查询车辆简要 支持分页
+    public List<CarBrief> selectBriefList(int start, int limit, String brand,String carTypeId,BigDecimal min,BigDecimal max);
+
+    //按条件查询车辆简要 num
+    public int selectBriefCount(String brand,String carTypeId,BigDecimal min,BigDecimal max);
 
     //修改租赁状态
     public void updateRentStatus(int cID,String cellPhone,int userID,String rentStatus);
