@@ -210,7 +210,8 @@ public class IndexController {
 
         //完成支付并写入日志
         moneyService.payOrReturn(user.getID(),rentPrice.getDeposit());
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),car.getCarInfoId(),"已预定",rentPrice.getDeposit(),car.getLicensePlate());
+//        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),
+//                car.getCarInfoId(),"已预定",rentPrice.getDeposit(),car.getLicensePlate(),ren);
 
         //租赁状态更新
         carService.updateRentStatus(car.getCarInfoId(),user.getCellPhone(),user.getID(),"rented");
@@ -310,9 +311,9 @@ public class IndexController {
             currentpage = Integer.parseInt(pagenum);
         }
         //查询
-        List<RentLog> list=rentLogService.selectUserRentLog(user.getID(),(currentpage-1)*pageSize,pageSize);
+        List<RentLog> list=rentLogService.selectUserRentLog(user.getID(),(currentpage-1)*pageSize,pageSize,null);
         //获取总数量
-        int total = rentLogService.selectUserRentLogCount(user.getID());
+        int total = rentLogService.selectUserRentLogCount(user.getID(),null);
         //列表返回页面
         request.setAttribute("list", list);
 
@@ -421,7 +422,7 @@ public class IndexController {
         //todo 如果还有租赁中的，不许注销
         //未提现到0也不可以哦
         //增加注销申请
-        rentLogService.insertLog(user.getName(),user.getCellPhone(), user.getID(),0, "申请注销", BigDecimal.valueOf(0),null);
+        rentLogService.insertLog(user.getName(),user.getCellPhone(), user.getID(),0, "申请注销", BigDecimal.valueOf(0),null,null);
         //return "accountCancellation";
     }
     //安全退出操作
@@ -641,7 +642,7 @@ public class IndexController {
         HttpSession session = request.getSession();
         User user=(User) session.getAttribute("qiantai");
         moneyService.payOrReturn(user.getID(),recharge.multiply(new BigDecimal(-1)));
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"充值",recharge,"");
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"充值",recharge,"",null);
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
     }
     //提现
@@ -650,7 +651,7 @@ public class IndexController {
         HttpSession session = request.getSession();
         User user=(User) session.getAttribute("qiantai");
         moneyService.payOrReturn(user.getID(),impose.multiply(new BigDecimal(1)));
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"提现",impose,"");
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"提现",impose,"",null);
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
     }
     //租车日志
@@ -741,9 +742,9 @@ public class IndexController {
         int userID=carService.selectUser(rentPrice.getCarInfoId());
         User user=userService.selectBeanById(userID);
         moneyService.payOrReturn(userID,price);
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),userID,rentPrice.getCarInfoId(),"支付金钱",price,null);
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),userID,rentPrice.getCarInfoId(),"支付金钱",price,null,null);
         moneyService.payOrReturn(userID,back.multiply(new BigDecimal(-1)));
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),userID,rentPrice.getCarInfoId(),"退还押金",back,null);
+        rentLogService.insertLog(user.getName(),user.getCellPhone(),userID,rentPrice.getCarInfoId(),"退还押金",back,null,null);
         carService.updateRentStatus(rentPrice.getCarInfoId(),null,0,"available");
         writer.print("<script language=javascript>alert('还车成功');window.location.href='carreturn.do';</script>");
     }

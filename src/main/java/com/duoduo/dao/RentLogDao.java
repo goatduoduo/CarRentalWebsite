@@ -18,7 +18,8 @@ public interface RentLogDao {
                           @Param("carID") int carID,
                           @Param("status") String status,
                           @Param("deltaMoney") BigDecimal deltaMoney,
-                          @Param("licensePlate") String licensePlate);
+                          @Param("licensePlate") String licensePlate,
+                          @Param("rentDays") Integer rentDays);
     //更新一条日志
     public void updateLog(@Param("logID") int logID,@Param("name") String name,@Param("cellPhone") String cellPhone,
                           @Param("userID") int userID,@Param("status") String status,
@@ -26,10 +27,10 @@ public interface RentLogDao {
 
     //查询自己的日志
     public List<RentLog> selectUserRentLog(@Param("userID") int userID,
-                                           @Param("start") int start, @Param("limit")int limit);
+                                           @Param("start") int start, @Param("limit")int limit,@Param("brand") String brand);
 
     //查询数量
-    public int selectUserRentLogCount(@Param("userID") int userID);
+    public int selectUserRentLogCount(@Param("userID") int userID,@Param("brand") String brand);
 
     //查询所有日志
     public List<RentLog> selectRentLog(@Param("start") int start,@Param("limit") int limit);

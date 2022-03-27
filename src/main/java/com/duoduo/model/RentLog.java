@@ -12,6 +12,15 @@ public class RentLog {
     private String status;
     private BigDecimal deltaMoney;
     private String licensePlate;
+    private Integer rentDays;
+
+    public Integer getRentDays() {
+        return rentDays;
+    }
+
+    public void setRentDays(Integer rentDays) {
+        this.rentDays = rentDays;
+    }
 
     public String getName() {
         return name;

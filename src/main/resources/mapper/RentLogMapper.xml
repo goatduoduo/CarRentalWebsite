@@ -11,16 +11,20 @@
         <result property="status" column="status"/>
         <result property="licensePlate" column="licensePlate"/>
         <result property="deltaMoney" column="deltaMoney"/>
+        <result property="rentDays" column="rentDays"/>
     </resultMap>
 
     <insert id="insertLog">
-        insert into rentlog(name, cellPhone, ID,cID, status,deltaMoney, licensePlate,logTime)
-        values (#{name},#{cellPhone},#{userID},#{carID},#{status},#{deltaMoney},#{licensePlate},current_time)
+        insert into rentlog(name, cellPhone, ID,cID, status,deltaMoney, licensePlate,logTime,rentDays)
+        values (#{name},#{cellPhone},#{userID},#{carID},#{status},#{deltaMoney},#{licensePlate},current_time,#{rentDays})
     </insert>
 
     <select id="selectUserRentLog" resultMap="rentLogMap">
-        select logID,name,cellPhone,ID,logTime,status,licensePlate,-deltaMoney
+        select *
         from rentlog where ID=#{userID}
+        <if test="brand != '' and brand != null">
+            and licensePlate like CONCAT(CONCAT('%', #{brand}), '%')
+        </if>
         order by logTime desc
         limit #{start}, #{limit}
     </select>
@@ -28,6 +32,9 @@
     <select id="selectUserRentLogCount" resultType="int">
         select count(*)
         from rentlog where ID=#{userID}
+        <if test="brand != '' and brand != null">
+            and licensePlate like CONCAT(CONCAT('%', #{brand}), '%')
+        </if>
     </select>
 
     <select id="selectRentLog" resultMap="rentLogMap">

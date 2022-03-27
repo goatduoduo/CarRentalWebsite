@@ -61,6 +61,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void updateRentStatus2(int cID, String cellPhone, int userID, String rentStatus, String name,Date returnTime) {
+        carDao.updateRentStatus2(cID, cellPhone, userID, rentStatus, name,returnTime);
+    }
+
+    @Override
     public int getCarID() {
         return carDao.getCarID();
     }

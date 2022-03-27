@@ -36,6 +36,9 @@ public interface CarDao {
     //修改租赁状态
     public void updateRentStatus(@Param("cID") int cID,@Param("cellPhone")String cellPhone,@Param("userID") int userID,@Param("rentStatus") String rentStatus);
 
+    //修改租赁状态
+    public void updateRentStatus2(@Param("cID") int cID,@Param("cellPhone")String cellPhone,@Param("userID") int userID,@Param("rentStatus") String rentStatus,@Param("name") String name,@Param("returnTime") Date returnTime);
+
     //获取可用ID以添加
     public int getCarID();
 

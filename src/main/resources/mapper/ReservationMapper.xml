@@ -9,6 +9,7 @@
         <result property="status" column="rentStatus"/>
         <result property="name" column="name"/>
         <result property="time" column="time"/>
+        <result property="returnTime" column="returnTime"/>
     </resultMap>
 
     <select id="selectUserReservation" resultMap="reservationResultMap">
@@ -18,7 +19,8 @@
             rentstatus.ID,
             rentstatus.rentStatus,
             rentstatus.name,
-            rentstatus.time
+            rentstatus.time,
+            rentstatus.returnTime
         FROM
             rentstatus
         where (rentStatus='rented' or rentStatus='returning') and ID=#{userID}

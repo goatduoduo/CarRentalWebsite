@@ -13,7 +13,7 @@
 %>
 <html>
 <head>
-    <title>汽车租赁网站模板页</title>
+    <title>汽车租赁网站</title>
     <%@ include file="z-head1.html"%>
 </head>
 <body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-layout-auto">

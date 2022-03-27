@@ -13,6 +13,15 @@ public class Reservation implements Serializable {
     private Date time;//当前时间
     private String name;//姓名
     private String cellPhone;//手机号
+    private Date returnTime;//归还时间
+
+    public Date getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(Date returnTime) {
+        this.returnTime = returnTime;
+    }
 
     public Date getTime() {
         return time;

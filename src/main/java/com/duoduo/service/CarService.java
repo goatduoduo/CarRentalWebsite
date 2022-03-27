@@ -40,6 +40,8 @@ public interface CarService {
 
     //修改租赁状态
     public void updateRentStatus(int cID,String cellPhone,int userID,String rentStatus);
+    //修改租赁状态
+    public void updateRentStatus2(int cID,String cellPhone,int userID,String rentStatus,String name,Date returnTime);
 
     //获取可用ID以添加
     public int getCarID();

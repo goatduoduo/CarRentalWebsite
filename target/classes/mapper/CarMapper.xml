@@ -17,6 +17,17 @@
         <result property="picPath" column="picPath"/>
         <result property="info" column="info"/>
     </resultMap>
+    <resultMap id="carBriefMap" type="com.duoduo.model.CarBrief">
+        <id property="carInfoId" column="cID"/>
+        <result property="carTypeId" column="ctID"/>
+        <result property="carTypeName" column="ctName"/>
+        <result property="brand" column="brand"/>
+        <result property="seats" column="seats"/>
+        <result property="color" column="color"/>
+        <result property="picPath" column="picPath"/>
+        <result property="DailyRent" column="dailyRent"/>
+        <result property="rentStatus" column="rentStatus"/>
+    </resultMap>
 
 <!--    插入操作-->
     <insert id="insertBean" parameterType="com.duoduo.model.Car">
@@ -69,6 +80,12 @@
         where cID=#{cID}
     </update>
 
+    <update id="updateRentStatus2">
+        update rentstatus
+        set cellPhone=#{cellPhone},ID=#{userID},rentStatus=#{rentStatus},name=#{name},returnTime=#{returnTime}
+        where cID=#{cID}
+    </update>
+
     <select id="getCarID" resultType="int">
         select max(cID)+1 from carinfo
     </select>
@@ -85,5 +102,35 @@
 
     <select id="selectUser" resultType="int">
         select ID from rentStatus where cID=#{carID}
+    </select>
+
+    <select id="selectBriefList" resultMap="carBriefMap">
+        select * from carbrief
+        where dailyRent between #{min} and #{max}
+                <if test="brand != '' and brand != null">
+                    and brand like CONCAT(CONCAT('%', #{brand}), '%')
+                </if>
+                <if test="carTypeId != '' and carTypeId != null">
+                    and ctID = ${carTypeId}
+                </if>
+        <!--        <if test="seats != '' and seats != null">-->
+        <!--            and seats = ${carTypeId}-->
+        <!--        </if>-->
+        order by cID asc
+        limit #{start}, #{limit}
+    </select>
+
+    <select id="selectBriefCount" resultType="int">
+        select count(*) from carbrief
+        where dailyRent between #{min} and #{max}
+        <if test="brand != '' and brand != null">
+            and brand like CONCAT(CONCAT('%', #{brand}), '%')
+        </if>
+        <if test="carTypeId != '' and carTypeId != null">
+            and ctID = ${carTypeId}
+        </if>
+        <!--        <if test="seats != '' and seats != null">-->
+        <!--            and seats = ${carTypeId}-->
+        <!--        </if>-->
     </select>
 </mapper>

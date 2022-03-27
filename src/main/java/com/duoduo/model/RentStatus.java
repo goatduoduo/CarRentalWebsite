@@ -10,6 +10,15 @@ public class RentStatus implements Serializable {
     private String rentStatus;
     private String name;
     private Date time;
+    private Date returnTime;//预计归还时间
+
+    public Date getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(Date returnTime) {
+        this.returnTime = returnTime;
+    }
 
     public int getCarID() {
         return carID;
