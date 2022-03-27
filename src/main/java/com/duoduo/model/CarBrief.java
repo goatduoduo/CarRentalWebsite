@@ -1,6 +1,7 @@
 package com.duoduo.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class CarBrief implements Serializable {
@@ -12,6 +13,24 @@ public class CarBrief implements Serializable {
     private String color; //颜色
     private String picPath; //图片文件
     private String brief; //简介自动生成
+    private BigDecimal DailyRent;//日租
+    private String rentStatus;
+
+    public String getRentStatus() {
+        return rentStatus;
+    }
+
+    public void setRentStatus(String rentStatus) {
+        this.rentStatus = rentStatus;
+    }
+
+    public BigDecimal getDailyRent() {
+        return DailyRent;
+    }
+
+    public void setDailyRent(BigDecimal dailyRent) {
+        DailyRent = dailyRent;
+    }
 
     public int getCarInfoId() {
         return carInfoId;

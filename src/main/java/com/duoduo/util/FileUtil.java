@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.util.UUID;
@@ -63,5 +65,16 @@ public class FileUtil {
 
         return filePath;
 
+    }
+
+    public static String changeCharset(String str, String newCharset)
+            throws UnsupportedEncodingException {
+        if (str != null) {
+            //用默认字符编码解码字符串。
+            byte[] bs = str.getBytes(StandardCharsets.ISO_8859_1);
+            //用新的字符编码生成字符串
+            return new String(bs, newCharset);
+        }
+        return null;
     }
 }

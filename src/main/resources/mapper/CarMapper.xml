@@ -25,6 +25,8 @@
         <result property="seats" column="seats"/>
         <result property="color" column="color"/>
         <result property="picPath" column="picPath"/>
+        <result property="DailyRent" column="dailyRent"/>
+        <result property="rentStatus" column="rentStatus"/>
     </resultMap>
 
 <!--    插入操作-->

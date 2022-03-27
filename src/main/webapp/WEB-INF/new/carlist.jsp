@@ -21,7 +21,7 @@
     <%@ include file="z-bodyTopUser.html"%>
     <%--    start here--%>
     <div class="mdui-container mdui-m-y-4">
-        <form action="${url }" method="post">
+        <form action="${url }" method="post" >
             <div class="mdui-col-xs-1">
                 <span class="mdui-text-color-white-100 mdui-m-r-1">品牌筛选</span>
             </div>
@@ -73,14 +73,24 @@
                         </div>
                         <div class="mdui-card-primary">
                             <div class="mdui-card-primary-title">${bean.brand }</div>
-                            <div class="mdui-card-primary-subtitle">提取简介</div>
-                            <span class="mdui-text-color-red-900">900￥/天</span>
-
-
-<%--                            <c:if test="${ bean.rentStatus!='available'  }">--%>
+                            <div class="mdui-card-primary-subtitle">${bean.brief}</div>
+                            <div class="mdui-text-color-red-900 mdui-m-y-1">${bean.dailyRent }￥/天 </div>
+                            <a href="carview.do?id=${bean.carInfoId }">
+                                <button class="mdui-btn mdui-btn-raised x mdui-m-r-1" href=""carview.do?id=${bean.carInfoId }"">
+                                    <div class="mdui-text-color-white">查看详情</div>
+                                </button>
+                            </a>
+                            <c:if test="${ bean.rentStatus!='available'  }">
                                 <button class="mdui-btn mdui-btn-raised" disabled>不可租赁</button>
-<%--                            </c:if>--%>
-                            <a href="carview.do?id=${bean.carInfoId }" class="mdui-btn-active">查看详情</a>
+                            </c:if>
+                            <c:if test="${ bean.rentStatus=='available'  }">
+                                <a href="reserveadd.do?carid=${bean.carInfoId }">
+                                    <button class="mdui-btn mdui-btn-raised mdui-color-blue-400" >
+                                        <div class="mdui-text-color-white">租赁！</div>
+                                    </button>
+                                </a>
+                            </c:if>
+<%--                            <a href="carview.do?id=${bean.carInfoId }" class="mdui-btn-active">查看详情</a>--%>
                         </div>
                     </div>
                     <a href="carlist.do">

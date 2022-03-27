@@ -16,6 +16,24 @@ public class Car implements Serializable {
     private String color; //颜色
     private String picPath; //图片文件
     private String info; //简介
+    private Double carYear;//车龄
+    private Double carMile;//历程
+
+    public Double getCarYear() {
+        return carYear;
+    }
+
+    public void setCarYear(Double carYear) {
+        this.carYear = carYear;
+    }
+
+    public Double getCarMile() {
+        return carMile;
+    }
+
+    public void setCarMile(Double carMile) {
+        this.carMile = carMile;
+    }
 
     public int getCarInfoId() {
         return carInfoId;
