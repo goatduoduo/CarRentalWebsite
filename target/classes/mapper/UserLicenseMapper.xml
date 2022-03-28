@@ -31,4 +31,8 @@
         where ID=#{ID}
     </update>
 
+    <select id="selectUserLicense" resultMap="userLicenseResultMap">
+        select * from driverlincence where ID=#{ID}
+    </select>
+
 </mapper>

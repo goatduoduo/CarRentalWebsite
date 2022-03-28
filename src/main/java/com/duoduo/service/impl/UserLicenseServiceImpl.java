@@ -31,4 +31,9 @@ public class UserLicenseServiceImpl implements UserLicenseService {
     public List<UserLicense> selectBeanList(int status) {
         return userLicenseDao.selectBeanList(status);
     }
+
+    @Override
+    public UserLicense selectUserLicense(int ID) {
+        return userLicenseDao.selectUserLicense(ID);
+    }
 }

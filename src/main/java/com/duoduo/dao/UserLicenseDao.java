@@ -20,4 +20,6 @@ public interface UserLicenseDao {
 
     //选择满足条件的
     public List<UserLicense> selectBeanList(@Param("status") int status);
+    //选择用户自己的
+    public UserLicense selectUserLicense(@Param("ID") int ID);
 }

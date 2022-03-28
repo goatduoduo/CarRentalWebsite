@@ -306,10 +306,23 @@ public class UserController {
 
 
         User bean = userService.selectBeanById(user.getID());
+        UserLicense license=userLicenseService.selectUserLicense(user.getID());
 
         request.setAttribute("bean", bean);
+        if(license!=null){
+            if(license.getExamineStatus()==0){
+                request.setAttribute("exam", "等待审核");
+            }
+            else if(license.getExamineStatus()==1){
+                request.setAttribute("exam", "审核通过");
+            }
+            else{
+                request.setAttribute("exam", "审核不通过");
+            }
+            request.setAttribute("license", license);
+        }
 
-        return "userupdate";
+        return "/new/userupdate";
 
     }
 
@@ -420,8 +433,10 @@ public class UserController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("qiantai");
         request.setAttribute("userName", user.getUserName());
-        request.setAttribute("curMoney", moneyService.getUserCurMoney(user.getID()));
-        return "usermoney";
+        moneyService.getUserCurMoney(user.getID());
+        BigDecimal money=moneyService.getUserCurMoney(user.getID());
+        request.setAttribute("curMoney", money);
+        return "/new/usermoney";
     }
 
     //充值
@@ -502,7 +517,7 @@ public class UserController {
 
         request.setAttribute("title", "用户注册");
 
-        return "register";
+        return "/new/register";
 
     }
 

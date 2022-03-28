@@ -14,4 +14,6 @@ public interface UserLicenseService {
     public void setExamineStatus(int ID,int examineStatus);
     //选择满足条件的
     public List<UserLicense> selectBeanList(int status);
+    //选择用户自己的
+    public UserLicense selectUserLicense(int ID);
 }
