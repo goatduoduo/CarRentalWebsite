@@ -1,0 +1,72 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+
+<div class="mdui-drawer" id="menu-drawer" style="width: 240px;">
+    <div class="mdui-list">
+        <a class="mdui-list-item mdui-ripple" id="home" href="index.do">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">首页</div>
+        </a>
+        <div class="mdui-subheader">管理功能</div>
+        <a class="mdui-list-item mdui-ripple" id="apk" href="carstatus.do">
+            <i class="mdui-list-item-icon mdui-icon material-icons">assignment_turned_in</i>
+            <div class="mdui-list-item-content">还车确认</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple" id="update" href="licenseexamine.do?status=1">
+            <i class="mdui-list-item-icon mdui-icon material-icons">verified_user</i>
+            <div class="mdui-list-item-content">证件审核</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple" id="passage" href="caradd.do">
+            <i class="mdui-list-item-icon mdui-icon material-icons">add</i>
+            <div class="mdui-list-item-content">发布车辆</div>
+        </a>
+        <div class="mdui-subheader">信息管理</div>
+        <a class="mdui-list-item mdui-ripple"
+           href="carlist2.do" target="_blank">
+            <i class="mdui-list-item-icon mdui-icon material-icons">directions_car</i>
+            <div class="mdui-list-item-content">车辆信息管理</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple"
+           href="userlist2.do" target="_blank">
+            <i class="mdui-list-item-icon mdui-icon material-icons">perm_identity</i>
+            <div class="mdui-list-item-content">用户信息管理</div>
+        </a>
+        <a class="mdui-list-item mdui-ripple"
+           href="loginout.do" target="_blank">
+            <i class="mdui-list-item-icon mdui-icon material-icons">exit_to_app</i>
+            <div class="mdui-list-item-content">退出登录</div>
+        </a>
+
+    </div>
+    <div class="drawer-bottom-text">
+        汽车租赁网站 2.0.0
+    </div>
+</div>
+<div class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-toolbar-hide mdui-shadow-0" id="appbar">
+    <div class="mdui-toolbar">
+        <a href="javascript:" id="menu-btn" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+        <span class="mdui-typo-title">汽车租赁网站</span>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a id="appbar-search" href="javascript:" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">search</i>
+        </a>-->
+        <a id="appbar-avatar"  class="mdui-btn .mdui-col-xs-3">
+            <i id="appbar-avatar-icon" class="mdui-icon material-icons">account_circle</i>
+            <img id="appbar-avatar-img" style="display: none" class="mdui-icon material-icons" src="" alt="">
+            <c:if test="${qiantai!=null}">
+                <span class="mdui-text-color-white-100">${username}</span>
+            </c:if>
+            <c:if test="${qiantai==null}">
+                <span class="mdui-text-color-white-100" >未登录</span>
+            </c:if>
+        </a>
+        <c:if test="${qiantai==null}">
+            <a href="login.do">
+                <button class="mdui-btn mdui-ripple" >登录</button>
+            </a>
+            <a href="register.do">
+                <button class="mdui-btn mdui-ripple" >注册</button>
+            </a>
+
+        </c:if>
+    </div>
+</div>

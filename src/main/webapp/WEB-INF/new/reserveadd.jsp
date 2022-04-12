@@ -26,10 +26,13 @@
         <div class="mdui-textfield mdui-textfield-floating-label">
             <label class="mdui-textfield-label">姓名</label>
             <input class="mdui-textfield-input" name='name' value="${user.name }" type="text"/>
+            <div class="mdui-m-y-2"></div>
             <label class="mdui-textfield-label" >手机号</label>
             <input class="mdui-textfield-input" name='cellPhone' value="${user.cellPhone }" type="text"/>
+            <div class="mdui-m-y-2"></div>
             <label class="mdui-textfield-label">预计租赁天数</label>
             <input class="mdui-textfield-input" name='rentDays' value="3" type="text"/>
+            <div class="mdui-m-y-2"></div>
         </div>
 
         <div >

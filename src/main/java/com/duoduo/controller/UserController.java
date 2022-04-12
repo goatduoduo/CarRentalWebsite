@@ -377,7 +377,7 @@ public class UserController {
 
         if (prodFile1 == null || prodFile1.getSize() <= 0) {
             this.getPrintWriter(response).print("<script language=javascript>alert('必须上传证件');" +
-                    "window.location.href='uploadLicense2.do?';</script>");
+                    "window.location.href='uploadLicense.do?';</script>");
             return;
         }
 

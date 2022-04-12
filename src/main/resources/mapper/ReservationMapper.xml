@@ -9,21 +9,17 @@
         <result property="status" column="rentStatus"/>
         <result property="name" column="name"/>
         <result property="time" column="time"/>
+        <result property="brand" column="brand"/>
         <result property="returnTime" column="returnTime"/>
     </resultMap>
 
     <select id="selectUserReservation" resultMap="reservationResultMap">
         SELECT
-            rentstatus.cID,
-            rentstatus.cellPhone,
-            rentstatus.ID,
-            rentstatus.rentStatus,
-            rentstatus.name,
-            rentstatus.time,
-            rentstatus.returnTime
+        b.brand, a.cID, a.cellPhone, a.ID, a.rentStatus, a.name, a.time, a.returnTime
         FROM
-            rentstatus
+        rentstatus a,cardetail b
         where (rentStatus='rented' or rentStatus='returning') and ID=#{userID}
+        and a.cID=b.cID
         <if test="brand != '' and brand != null">
             and brand like '%' #{brand} '%'
         </if>

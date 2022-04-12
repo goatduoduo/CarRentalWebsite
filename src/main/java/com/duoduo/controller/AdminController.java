@@ -19,8 +19,8 @@ import java.sql.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
-public class IndexController {
+@RequestMapping(value = "/admin")
+public class AdminController {
 
     @Resource
     private UserService userService;
@@ -81,9 +81,8 @@ public class IndexController {
 
     }
     @RequestMapping("/index.do")
-    public String index(HttpServletRequest request,HttpServletResponse response){
-        System.out.println(request.getServletContext().getRealPath("/"));
-        return "new/userIndex";
+    public String index(){
+        return "new/adminIndex";
     }
     //车辆列表
     @RequestMapping("/carlist.do")
@@ -193,7 +192,7 @@ public class IndexController {
     }
     //预定租车操作
     @RequestMapping("/reserveadd2.do")
-    public void reserveadd2(HttpServletRequest request, HttpServletResponse response, int carid) throws IOException{
+    public void reserveadd2(HttpServletRequest request, HttpServletResponse response, int carid) throws IOException {
 
         PrintWriter writer = this.getPrintWriter(response);
 
@@ -243,8 +242,8 @@ public class IndexController {
         //查询列表
         List<Reservation> list = reservationService.selectUserReservation((currentpage - 1) * pageSize,
                 pageSize, user.getID(), brand);
-                //yudingService.selectBeanList((currentpage - 1)
-                //* pageSize, pageSize,chepai,null,user.getId(),0,null);
+        //yudingService.selectBeanList((currentpage - 1)
+        //* pageSize, pageSize,chepai,null,user.getId(),0,null);
 
         //列表返回页面
         request.setAttribute("list", list);
@@ -388,7 +387,7 @@ public class IndexController {
     }
     //顾客上传证件后供管理员审核
     @RequestMapping("/uploadLicense2.do")
-    public void uploadLicense2(HttpServletRequest request,HttpServletResponse response,UserLicense bean,MultipartFile prodFile1){
+    public void uploadLicense2(HttpServletRequest request, HttpServletResponse response, UserLicense bean, MultipartFile prodFile1){
         PrintWriter writer = this.getPrintWriter(response);
 
 

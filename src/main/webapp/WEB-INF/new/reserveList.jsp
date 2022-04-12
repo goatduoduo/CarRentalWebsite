@@ -33,7 +33,7 @@
             <tr>
                 <td>客户姓名</td>
                 <td>客户手机号</td>
-                <td>预定状态</td>
+                <td>车型</td>
                 <td>预定时间</td>
                 <td>预计还车日期</td>
                 <td>操作</td>
@@ -42,7 +42,7 @@
                 <tr>
                     <td>${bean.name }</td>
                     <td>${bean.cellPhone }</td>
-                    <td>${bean.status }</td>
+                    <td>${bean.brand }</td>
                     <td>${bean.time }</td>
                     <td>${bean.returnTime }</td>
                     <td>
