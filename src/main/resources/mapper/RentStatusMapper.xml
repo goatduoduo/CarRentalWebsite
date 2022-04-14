@@ -9,6 +9,7 @@
         <result property="rentStatus" column="rentStatus"/>
         <result property="name" column="name"/>
         <result property="time" column="time"/>
+        <result property="returnTime" column="returnTime"/>
     </resultMap>
 
     <select id="selectRented" resultMap="rentStatusResultMap">

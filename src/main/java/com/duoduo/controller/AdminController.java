@@ -2,6 +2,8 @@ package com.duoduo.controller;
 
 import com.duoduo.model.*;
 import com.duoduo.service.*;
+import com.duoduo.util.CRWUtil;
+import com.duoduo.util.DateUtil;
 import com.duoduo.util.FileUtil;
 import com.duoduo.util.PagerUtil;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -132,200 +137,32 @@ public class AdminController {
     }
 
     @RequestMapping("/carview.do")
-    public String carview(HttpServletRequest request,int id){
+    public String carview(HttpServletRequest request,int id) throws ParseException {
 
         Car bean = carService.selectBeanById(id);
-        RentPrice rentPrice= rentPriceService.selectPriceById(id);
-        List<PriceChange> priceChanges=rentPriceService.selectDeltaPriceById(id);
+        RentPrice rentPrice = rentPriceService.selectPriceById(id);
+        List<PriceChange> priceChanges = rentPriceService.selectDeltaPriceById(id);
 
         request.setAttribute("bean", bean);
+        bean.setCarYear(CRWUtil.scale( DateUtil.yearsBetween(bean.getCreateTime(),new java.util.Date()),1));
+        bean.setCarMile(CRWUtil.scale( bean.getCarYear()*20000,2));
         //TODO:在前端显示淡旺季价格变化
-        request.setAttribute("price",rentPrice);
+        request.setAttribute("price", rentPrice);
         request.setAttribute("title", "车辆详情");
         //request.getSession()
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         int role;
         try {
-            role= (int) session.getAttribute("role");
+            role = (int) session.getAttribute("role");
+        } catch (NullPointerException e) {
+            role = 0;//0是未登录的
         }
-        catch (NullPointerException e){
-            role=0;//0是未登录的
-        }
-        request.setAttribute("role",role);
-        return "carview";
+        request.setAttribute("role", role);
+        return "/new/carview";
 
     }
 
-    //跳转预定租车页面
-    @RequestMapping("/reserveadd.do")
-    public String yudingadd(HttpServletRequest request,HttpServletResponse response,int carid) {
 
-        PrintWriter writer = this.getPrintWriter(response);
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-
-        if (user == null) {
-            writer.print("<script  language='javascript'>alert('请先登录');window.location.href='login.do';</script>");
-            return  null;
-        }
-        //没有驾驶证或者驾驶证不通过的也不可以哦
-        if(userService.hasAvailableLicense(user.getID())<1){
-            writer.print("<script  language='javascript'>alert('需要有效驾驶证，请在个人信息中提交');window.location.href='index.do';</script>");
-            return  null;
-        }
-
-        Car car = carService.selectBeanById(carid);
-
-        request.setAttribute("car", car);
-
-        //user = userService.selectBeanById(user.getID());
-
-        request.setAttribute("user", user);
-
-
-        request.setAttribute("url", "reserveadd2.do?carid="+carid);
-        request.setAttribute("title", "预定租车");
-
-        return "reserveadd";
-
-    }
-    //预定租车操作
-    @RequestMapping("/reserveadd2.do")
-    public void reserveadd2(HttpServletRequest request, HttpServletResponse response, int carid) throws IOException {
-
-        PrintWriter writer = this.getPrintWriter(response);
-
-        Car car = carService.selectBeanById(carid);
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-        //获取租金
-        RentPrice rentPrice=rentPriceService.selectPriceById(car.getCarInfoId());
-        //todo 封装一个方法用来计算实际日租(其实有可能租赁了很长时间了)
-        //当钱不够支付押金时,拒绝服务!
-        if(moneyService.canAfford(user.getID(),rentPrice.getDeposit()).doubleValue()<0){
-            writer.print("<script  language='javascript'>alert('需要有效驾驶证，请在个人信息中提交');window.location.href='.';</script>");
-            return;
-        }
-
-        //完成支付并写入日志
-        moneyService.payOrReturn(user.getID(),rentPrice.getDeposit());
-//        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),
-//                car.getCarInfoId(),"已预定",rentPrice.getDeposit(),car.getLicensePlate(),ren);
-
-        //租赁状态更新
-        carService.updateRentStatus(car.getCarInfoId(),user.getCellPhone(),user.getID(),"rented");
-        writer.print("<script  language='javascript'>alert('操作成功');window.location.href='reserveList.do'; </script>");
-
-    }
-    //查询已经预定的
-    @RequestMapping("/reserveList.do")
-    public String reserveList(HttpServletRequest request,String pagenum,String brand){
-
-        //查询条件返回页面
-        if (brand != null && !"".equals(brand)) {
-
-            request.setAttribute("brand", brand);
-        }
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-
-        //分页功能默认第一页
-        int currentpage = 1;
-        //获取当前页
-        if (pagenum != null) {
-            currentpage = Integer.parseInt(pagenum);
-        }
-        //一旦预定无法取消！
-        //查询列表
-        List<Reservation> list = reservationService.selectUserReservation((currentpage - 1) * pageSize,
-                pageSize, user.getID(), brand);
-        //yudingService.selectBeanList((currentpage - 1)
-        //* pageSize, pageSize,chepai,null,user.getId(),0,null);
-
-        //列表返回页面
-        request.setAttribute("list", list);
-
-        //获取总数量
-        int total = reservationService.selectUserReservationCount(user.getID(), brand);
-
-        //分页信息返回页面
-        request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
-                currentpage, "reserveList.do", "共有" + total + "条记录"));
-
-
-        request.setAttribute("title", "我的预定");
-
-
-        return "reserveList";
-
-    }
-
-    //来注册吧！
-    @RequestMapping("/register.do")
-    public String register(HttpServletRequest request){
-
-        request.setAttribute("title", "用户注册");
-
-        return "register";
-
-    }
-    //用户注册操作
-    @RequestMapping("/register2.do")
-    public void register2(HttpServletRequest request,HttpServletResponse response,User user){
-        //当表单中组件的 name 和对象的属性名一致时 可以在controller  方法的参数中 写一个对应的对应，spring会自动封装成一个对象
-        PrintWriter writer = this.getPrintWriter(response);
-        if(userService.existCellphone(user.getCellPhone())>0){
-
-            writer.print("<script language=javascript>alert('该手机号已被注册，注册失败！');window.location.href='register.do';</script>");
-
-            return;
-        }
-
-        if(userService.existIdentity(user.getIdentity())>0){
-
-            writer.print("<script language=javascript>alert('该身份证已经存在，注册失败！');window.location.href='register.do';</script>");
-
-            return;
-        }
-        Date date=new Date(System.currentTimeMillis());
-        user.setCreateTime(date);
-        user.setRole(2);
-
-        userService.insertBean(user);
-
-        writer.print("<script language=javascript>alert('注册成功');window.location.href='login.do';</script>");
-
-
-    }
-    //查询用户自己的日志
-    @RequestMapping("/guestLog.do")
-    public String guestLog(HttpServletRequest request,String pagenum,HttpServletResponse response){
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-        //分页功能默认第一页
-        int currentpage = 1;
-        //获取当前页
-        if (pagenum != null) {
-            currentpage = Integer.parseInt(pagenum);
-        }
-        //查询
-        List<RentLog> list=rentLogService.selectUserRentLog(user.getID(),(currentpage-1)*pageSize,pageSize,null);
-        //获取总数量
-        int total = rentLogService.selectUserRentLogCount(user.getID(),null);
-        //列表返回页面
-        request.setAttribute("list", list);
-
-        //分页信息返回页面
-        request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
-                currentpage, "reserveList.do", "共有" + total + "条记录"));
-
-
-        request.setAttribute("title", "我的预定");
-        return "guestLog";
-    }
     //更新信息
     @RequestMapping("/userupdate.do")
     public String userupdate(HttpServletRequest request){
@@ -366,66 +203,6 @@ public class AdminController {
 
 
     }
-    //顾客上传三证件供审核
-    @RequestMapping("/uploadLicense.do")
-    public String uploadLicense(HttpServletRequest request,HttpServletResponse response){
-        PrintWriter writer = this.getPrintWriter(response);
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-
-        if (user == null) {
-            writer.print("<script  language='javascript'>alert('请先登录');window.location.href='login.do';</script>");
-            return  null;
-        }
-
-        request.setAttribute("user", user);
-
-        request.setAttribute("title", "证件上传");
-
-        return "uploadLicense";
-    }
-    //顾客上传证件后供管理员审核
-    @RequestMapping("/uploadLicense2.do")
-    public void uploadLicense2(HttpServletRequest request, HttpServletResponse response, UserLicense bean, MultipartFile prodFile1){
-        PrintWriter writer = this.getPrintWriter(response);
-
-
-        if(prodFile1==null || prodFile1.getSize()<=0 ){
-            this.getPrintWriter(response).print("<script language=javascript>alert('必须上传证件');" +
-                    "window.location.href='uploadLicense2.do?';</script>");
-            return;
-        }
-
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-
-        bean.setLicenseNumber(user.getLicenseNumber());
-        bean.setID(user.getID());
-        bean.setExamineStatus(0);
-
-        String file =  FileUtil.uploadFile(request, prodFile1);
-        bean.setPath(file);
-
-        userLicenseService.deleteBean(user.getID());
-        userLicenseService.insertBean(bean);
-
-        writer.print("<script  language='javascript'>alert('操作成功');window.location.href='uploadLicense.do'; </script>");
-
-    }
-    //申请注销
-    @RequestMapping("/accountCancellation.do")
-    public void accountCancellation(HttpServletRequest request,HttpServletResponse response){
-        PrintWriter writer = this.getPrintWriter(response);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-        //todo 如果还有租赁中的，不许注销
-        //未提现到0也不可以哦
-        //增加注销申请
-        rentLogService.insertLog(user.getName(),user.getCellPhone(), user.getID(),0, "申请注销", BigDecimal.valueOf(0),null,null);
-        //return "accountCancellation";
-    }
     //安全退出操作
     @RequestMapping("/loginout.do")
     public void loginout(HttpServletRequest request,HttpServletResponse response){
@@ -441,7 +218,7 @@ public class AdminController {
     }
     //用户管理
     //人员列表
-    @RequestMapping("/userlist.do")
+    @RequestMapping("/userlist2.do")
     public String userlist(HttpServletRequest request,String pagenum,String username){
 
         //查询条件返回页面
@@ -480,7 +257,7 @@ public class AdminController {
 
         request.setAttribute("title", "人员管理");
 
-        return "userlist";
+        return "new/userlist";
 
     }
     //跳转到修改人员页面
@@ -545,7 +322,7 @@ public class AdminController {
 
         request.setAttribute("title", "添加车辆");
 
-        return "caradd";
+        return "new/caradd";
 
     }
     //添加车辆操作
@@ -575,37 +352,58 @@ public class AdminController {
     //todo 车辆的修改和删除
     //管理员的车辆页面
     @RequestMapping("/carlist2.do")
-    public String carlist2(HttpServletRequest request,String pagenum){
+    public String carlist2(HttpServletRequest request, String pagenum, String brand, String carTypeId, String DailyRent) throws UnsupportedEncodingException {
+        //查询条件返回页面
+        if (brand != null && !"".equals(brand)) {
+
+            request.setAttribute("brand", brand);
+        }
+
+        if (carTypeId != null && !"".equals(carTypeId)) {
+
+            request.setAttribute("carTypeId", carTypeId);
+        }
+        if (DailyRent != null && !"".equals(DailyRent)) {
+
+            request.setAttribute("DailyRent", DailyRent);
+        }
+
         //分页功能默认第一页
         int currentpage = 1;
         //获取当前页
         if (pagenum != null) {
             currentpage = Integer.parseInt(pagenum);
         }
-
-        //查询列表
-        List<Car> list = carService.selectBeanList((currentpage - 1)
-                * pageSize, pageSize,null);
+        if (Objects.equals(brand, "")) {
+            brand = null;
+        } else {
+            brand = FileUtil.changeCharset(brand, "UTF-8");
+        }
+        if (Objects.equals(carTypeId, "")) carTypeId = null;
+        if(DailyRent==null || DailyRent.equals("")) DailyRent="0,10000";
+        //查询列表x
+        BigDecimal min = CRWUtil.getFirst(DailyRent);
+        BigDecimal max = CRWUtil.getSecond(DailyRent);
+        List<CarBrief> list = carService.selectBriefList((currentpage - 1) * pageSize, pageSize, brand, carTypeId, min, max);
+        for(CarBrief e:list){
+            //自动生成简历
+            e.setBrief();
+        }
 
         //列表返回页面
         request.setAttribute("list", list);
 
         //获取总数量
-        int total = carService.selectBeanCount(null);
+        int total = carService.selectBriefCount(brand, carTypeId, min, max);
 
         //分页信息返回页面
         request.setAttribute("pagerinfo", PagerUtil.getPagerNormal(total, pageSize,
-                currentpage, "carlist2.do", "共有" + total + "条记录"));
+                currentpage, "carlist.do", "共有" + total + "条记录"));
 
-        //查询按钮
-        request.setAttribute("url", "carlist2.do");
 
-        //添加，更新，删除等按钮
-        request.setAttribute("url2", "car");
+        request.setAttribute("title", "车辆");
 
-        request.setAttribute("title", "车辆管理");
-
-        return "carlist2";
+        return "new/carlist2";
     }
     @RequestMapping("/carupdate.do")
     public String carupdate(HttpServletRequest request,int id){
@@ -637,24 +435,7 @@ public class AdminController {
         request.setAttribute("curMoney",moneyService.getUserCurMoney(user.getID()));
         return "usermoney";
     }
-    //充值
-    @RequestMapping("/userrecharge.do")
-    public void userrecharge(HttpServletRequest request,HttpServletResponse response,BigDecimal recharge){
-        HttpSession session = request.getSession();
-        User user=(User) session.getAttribute("qiantai");
-        moneyService.payOrReturn(user.getID(),recharge.multiply(new BigDecimal(-1)));
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"充值",recharge,"",null);
-        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
-    }
-    //提现
-    @RequestMapping("/userimpose.do")
-    public void userimpose(HttpServletRequest request,HttpServletResponse response,BigDecimal impose){
-        HttpSession session = request.getSession();
-        User user=(User) session.getAttribute("qiantai");
-        moneyService.payOrReturn(user.getID(),impose.multiply(new BigDecimal(1)));
-        rentLogService.insertLog(user.getName(),user.getCellPhone(),user.getID(),0,"提现",impose,"",null);
-        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
-    }
+
     //租车日志
     @RequestMapping("/logview.do")
     public String logview(HttpServletRequest request,HttpServletResponse response,String pagenum){
@@ -688,7 +469,7 @@ public class AdminController {
 
         request.setAttribute("title", "日志管理");
 
-        return "logview";
+        return "new/logview2";
     }
     //人员列表
     @RequestMapping("/carstatus.do")
@@ -720,7 +501,7 @@ public class AdminController {
 
         request.setAttribute("title", "人员管理");
 
-        return "carstatus";
+        return "new/carstatus";
 
     }
     @RequestMapping("/carreturn.do")
@@ -729,9 +510,10 @@ public class AdminController {
         List<PriceChange> priceChange=rentPriceService.selectDeltaPriceById(carID);
         //计算需要的钱
         BigDecimal price=getPrice(rentPrice,priceChange);
+        rentPrice.setDailyRent(rentPrice.getDailyRent().multiply(new BigDecimal(4)));
         request.setAttribute("rentPrice",rentPrice);
         request.setAttribute("total",price);
-        return "carreturn";
+        return "new/carreturn";
     }
     //确认归还
     @RequestMapping("/carreturn2.do")
