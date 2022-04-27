@@ -77,7 +77,7 @@
 
                                             <tr>
 
-                                                <td >车牌号</td>
+                                                <td >车辆ID</td>
                                                 <td >客户手机号</td>
                                                 <td >预定时间</td>
                                                 <td >预定状态</td>
@@ -95,7 +95,7 @@
 
                                                 <tr>
 
-                                                    <td >${bean.brand }</td>
+                                                    <td >${bean.carID }</td>
                                                     <td >${bean.cellPhone }</td>
                                                     <td >${bean.time }</td>
                                                     <td >${bean.status }</td>

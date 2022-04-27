@@ -328,7 +328,7 @@ public class UserController {
 
     //个人信息维护操作
     @RequestMapping("/userupdate2.do")
-    public void userupdate2(HttpServletRequest request, HttpServletResponse response, String userName, String cellPhone) {
+    public void userupdate2(HttpServletRequest request, HttpServletResponse response, String userName, String cellPhone,String licenseNumber) {
 
         PrintWriter writer = this.getPrintWriter(response);
 
@@ -340,7 +340,8 @@ public class UserController {
 
 
         bean.setUserName(userName);
-        bean.setName(cellPhone);
+        bean.setCellPhone(cellPhone);
+        bean.setLicenseNumber(licenseNumber);
 
         userService.updateBean(bean);
 
@@ -371,7 +372,7 @@ public class UserController {
 
     //顾客上传证件后供管理员审核
     @RequestMapping("/uploadLicense2.do")
-    public void uploadLicense2(HttpServletRequest request, HttpServletResponse response, UserLicense bean, MultipartFile prodFile1) {
+    public void uploadLicense2(HttpServletRequest request, HttpServletResponse response,Date receiveDate,Date expireDate , UserLicense bean, MultipartFile prodFile1) {
         PrintWriter writer = this.getPrintWriter(response);
 
 
@@ -388,6 +389,9 @@ public class UserController {
         bean.setLicenseNumber(user.getLicenseNumber());
         bean.setID(user.getID());
         bean.setExamineStatus(0);
+        bean.setCellPhone(user.getCellPhone());
+        bean.setReceiveDate(receiveDate);
+        bean.setExpireDate(expireDate);
 
         String file = FileUtil.uploadFile(request, prodFile1);
         bean.setPath(file);
@@ -395,7 +399,7 @@ public class UserController {
         userLicenseService.deleteBean(user.getID());
         userLicenseService.insertBean(bean);
 
-        writer.print("<script  language='javascript'>alert('操作成功');window.location.href='uploadLicense.do'; </script>");
+        writer.print("<script  language='javascript'>alert('更新成功');window.location.href='userupdate.do'; </script>");
 
     }
 
@@ -451,11 +455,11 @@ public class UserController {
 
     //提现
     @RequestMapping("/userimpose.do")
-    public void userimpose(HttpServletRequest request, HttpServletResponse response, BigDecimal impose) {
+    public void userimpose(HttpServletRequest request, HttpServletResponse response, BigDecimal imposes) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("qiantai");
-        moneyService.payOrReturn(user.getID(), impose.multiply(new BigDecimal(1)));
-        rentLogService.insertLog(user.getName(), user.getCellPhone(), user.getID(), 0, "提现", impose, "",null);
+        moneyService.payOrReturn(user.getID(), imposes.multiply(new BigDecimal(1)));
+        rentLogService.insertLog(user.getName(), user.getCellPhone(), user.getID(), 0, "提现", imposes, "",null);
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='usermoney.do';</script>");
     }
 

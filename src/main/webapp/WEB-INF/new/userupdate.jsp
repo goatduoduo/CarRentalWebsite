@@ -54,6 +54,12 @@
                         </td>
                     </tr>
 
+                    <tr>
+                        <td>驾驶证号：</td>
+                        <td><input class="mdui-textfield-input" name='licenseNumber' value="${bean.licenseNumber }" type='text' id='licenseNumberid'
+                                   style="width: 300px;"/>
+                        </td>
+                    </tr>
 
                     <tr>
                         <td>
@@ -77,12 +83,12 @@
                     </tr>
                     <tr>
                         <td>驾驶证领取日期：</td>
-                        <td><input class="mdui-textfield-input" name='licenseReceive' type='date' id='xingmingid' value="${license.receiveDate }"/>
+                        <td><input class="mdui-textfield-input" name='receiveDate' type='date' id='receiveDate' value="${license.receiveDate }"/>
                         </td>
                     </tr>
                     <tr>
                         <td>驾驶证过期日期：</td>
-                        <td><input class="mdui-textfield-input" name='licenseExpire' type='date' id='dianhuaid' value="${license.expireDate }"/>
+                        <td><input class="mdui-textfield-input" name='expireDate' type='date' id='expireDate' value="${license.expireDate }"/>
                         </td>
                     </tr>
 

@@ -33,4 +33,5 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <property name="basePackage" value="com.duoduo.dao"/>
     </bean>
+
 </beans>

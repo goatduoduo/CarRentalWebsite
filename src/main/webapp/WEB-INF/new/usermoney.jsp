@@ -37,7 +37,7 @@
         </div>
         <div class="mdui-col-xs-12 mdui-col-md-4">
             <form action="userimpose.do" method="post">
-                <input class="mdui-textfield-input" name="recharge" type="text" value="${recharge }"
+                <input class="mdui-textfield-input" name="imposes" type="text" value="${imposes }"
                        placeholder="提现金额"/>
                 &nbsp;&nbsp; <input class="mdui-m-t-4 mdui-btn mdui-btn-raised mdui-color-blue-a200 action-btn"
                                     value="提现" type="submit"/>

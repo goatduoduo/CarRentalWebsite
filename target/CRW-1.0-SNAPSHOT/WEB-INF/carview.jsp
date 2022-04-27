@@ -94,7 +94,7 @@
 
                                                 <tr>
                                                     <td width='11%'>座位数：</td><td width='20%'>${bean.seats }</td>
-                                                    <td width='11%'>颜色：</td><td width='20%'>${bean.color }</td>
+                                                    <td width='11%'>取车/还车地点：</td><td width='20%'>${bean.locaton }</td>
                                                 </tr>
 
 

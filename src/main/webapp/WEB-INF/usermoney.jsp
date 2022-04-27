@@ -59,18 +59,19 @@
         </TR>
 
     <TR >
+        <form action="userimpose.do" method="post">
+            提现:<input name="imposes" type="text" value="${imposes }" />
+            &nbsp;&nbsp; 元 <input
+                value="提现" type="submit" />
+
+        </form>
         <form action="userrecharge.do" method="post">
             充值:<input name="recharge" type="text" value="${recharge }" />
             &nbsp;&nbsp; 元 <input
                 value="充值" type="submit" />
 
         </form>
-        <form action="userimpose.do" method="post">
-            提现:<input name="impose" type="text" value="${impose }" />
-            &nbsp;&nbsp; 元 <input
-                value="提现" type="submit" />
 
-        </form>
     </TR>
 
 
