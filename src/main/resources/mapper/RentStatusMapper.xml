@@ -19,4 +19,8 @@
     <select id="countRented" resultType="int">
         select count(*) from rentstatus where rentStatus='rented'
     </select>
+
+    <select id="selectOne" resultMap="rentStatusResultMap">
+        select * from rentstatus where cID=#{CarID}
+    </select>
 </mapper>

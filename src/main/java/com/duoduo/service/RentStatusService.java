@@ -9,4 +9,6 @@ public interface RentStatusService {
     public List<RentStatus> selectRented(int start,int limit);
     //选择数量
     public int countRented();
+    //根据车辆id选择
+    public RentStatus selectOne(int CarID);
 }

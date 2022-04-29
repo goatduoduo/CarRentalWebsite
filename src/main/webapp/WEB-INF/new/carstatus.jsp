@@ -44,7 +44,7 @@
                     <td>${bean.time }</td>
                     <td>${bean.returnTime }</td>
                     <td>
-                        <a href="carreturn.do?carID=${bean.carID }&userID=${bean.userID}&time=${bean.time}">
+                        <a href="carreturn.do?carID=${bean.carID }&userID=${bean.userID}">
                             <button class="mdui-btn mdui-color-blue-400 mdui-btn-raised mdui-ripple">
                                 <div class="mdui-text-color-white">确认还车</div>
                             </button>

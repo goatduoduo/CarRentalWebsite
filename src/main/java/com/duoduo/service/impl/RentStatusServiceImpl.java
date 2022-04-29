@@ -22,4 +22,9 @@ public class RentStatusServiceImpl implements RentStatusService {
         return rentStatusDao.countRented();
     }
 
+    @Override
+    public RentStatus selectOne(int CarID) {
+        return rentStatusDao.selectOne(CarID);
+    }
+
 }

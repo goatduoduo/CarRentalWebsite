@@ -18,7 +18,7 @@
 </head>
 <body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-layout-auto">
 <div class="mdui-container">
-    <%@ include file="z-bodyTopUser.html"%>
+    <%@ include file="z-bodyTopAdmin.html"%>
     <%--    start here--%>
     <div class="mdui-container mdui-m-y-4">
         <form  action="${url }" method="post" >

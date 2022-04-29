@@ -71,7 +71,7 @@
 
     <select id="selectBeanById" resultMap="carResultMap">
         select * from carinfo a,cardetail b,cartype c
-        where a.cID=b.cID and a.cID=c.ctID and a.cID=#{id}
+        where a.cID=b.cID and a.ctID=c.ctID and a.cID=#{id}
     </select>
 
     <update id="updateRentStatus">

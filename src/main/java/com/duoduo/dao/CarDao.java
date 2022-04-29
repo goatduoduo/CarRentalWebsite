@@ -45,7 +45,8 @@ public interface CarDao {
     public void insertBeanByID(@Param("carID") int carID, @Param("licensePlate") String licensePlate, @Param("brand") String brand, @Param("drivingLicense") String drivingLicense,
                                @Param("carTypeId") int carTypeId, @Param("picPath") String picPath, @Param("dailyRent") BigDecimal dailyRent, @Param("deposit") BigDecimal deposit,
                                @Param("price") BigDecimal price, @Param("insurance") BigDecimal insurance, @Param("serviceCharge") BigDecimal serviceCharge, @Param("location") String location,
-                               @Param("createTime")Date createTime,@Param("seats") int seats,@Param("info") int info);
+                               @Param("color") String color,
+                               @Param("createTime")Date createTime,@Param("seats") int seats,@Param("info") String info);
     //选择租了这个车子的用户ID
     public int selectUser(@Param("carID") int carID);
 

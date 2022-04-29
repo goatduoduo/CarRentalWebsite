@@ -49,8 +49,8 @@ public interface CarService {
     //插入动作
     public void insertBeanByID(int carID, String licensePlate, String brand, String drivingLicense,
                                int carTypeId, String picPath, BigDecimal dailyRent, BigDecimal deposit,
-                               BigDecimal price, BigDecimal insurance, BigDecimal serviceCharge, String location, Date createTime,
-                               int seats, int info);
+                               BigDecimal price, BigDecimal insurance, BigDecimal serviceCharge, String location,String color, Date createTime,
+                               int seats, String info);
 
     //选择租了这个车子的用户ID
     public int selectUser(int carID);

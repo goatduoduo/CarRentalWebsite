@@ -25,7 +25,7 @@
     </div>
     <div class="mdui-row">
         <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
-            <a href="carlist.do">
+            <a href="carstatus.do">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
                         <img src="../../img/admin.jpg" alt="汽车查询"/>
@@ -38,7 +38,7 @@
             </a>
         </div>
         <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
-            <a href="reserveList.do">
+            <a href="licenseexamine.do?status=1">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
                         <img src="../../img/admin.jpg" alt="我的预定"/>
@@ -51,7 +51,7 @@
             </a>
         </div>
         <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
-            <a href="guestLog.do">
+            <a href="caradd.do">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
                         <img src="../../img/admin.jpg" alt="租车日志"/>
@@ -64,7 +64,7 @@
             </a>
         </div>
         <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
-            <a href="userupdate.do">
+            <a href="carlist2.do">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
                         <img src="../../img/admin.jpg" alt="编辑信息"/>
@@ -77,7 +77,7 @@
             </a>
         </div>
         <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
-            <a href="usermoney.do" target="_blank"
+            <a href="userlist2.do" target="_blank"
                rel="nofollow">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">
@@ -91,7 +91,7 @@
             </a>
         </div>
         <div class="mdui-col-xs-6 mdui-col-sm-4 mdui-col-md-3 mdui-m-y-1">
-            <a href="usermoney.do" target="_blank"
+            <a href="logview.do" target="_blank"
                rel="nofollow">
                 <div class="mdui-card mdui-hoverable mdui-card-aligned">
                     <div class="mdui-card-media">

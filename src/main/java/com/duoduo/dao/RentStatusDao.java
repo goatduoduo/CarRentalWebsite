@@ -12,4 +12,7 @@ public interface RentStatusDao {
     public List<RentStatus> selectRented(@Param("start") int start, @Param("limit") int limit);
 
     public int countRented();
+
+    //根据车辆id选择
+    public RentStatus selectOne(@Param("CarID") int CarID);
 }

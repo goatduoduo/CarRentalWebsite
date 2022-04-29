@@ -565,10 +565,10 @@ public class IndexController {
 
         String pic =  FileUtil.uploadFile(request, prodFile);
         int carID=carService.getCarID();
-        //长到离谱的创建函数
-        carService.insertBeanByID(carID,licensePlate,brand,drivingLicense,
-                carTypeId,pic,dailyRent,deposit,price,insurance,serviceCharge,
-                location,createTime,seats,info);
+//        //长到离谱的创建函数
+//        carService.insertBeanByID(carID,licensePlate,brand,drivingLicense,
+//                carTypeId,pic,dailyRent,deposit,price,insurance,serviceCharge,
+//                location,createTime,seats,info);
 
         this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');" +
                 "window.location.href='carlist.do';</script>");

@@ -130,8 +130,13 @@ public class UserController {
 
         Car bean = carService.selectBeanById(id);
         RentPrice rentPrice = rentPriceService.selectPriceById(id);
-        List<PriceChange> priceChanges = rentPriceService.selectDeltaPriceById(id);
+        List<PriceChange> priceChanges = null;
+        try{
+            priceChanges = rentPriceService.selectDeltaPriceById(id);
+        }
+        catch (Exception e){
 
+        }
         request.setAttribute("bean", bean);
         bean.setCarYear(CRWUtil.scale( DateUtil.yearsBetween(bean.getCreateTime(),new java.util.Date()),1));
         bean.setCarMile(CRWUtil.scale( bean.getCarYear()*20000,2));
@@ -425,7 +430,7 @@ public class UserController {
         HttpSession session = request.getSession();
         session.removeAttribute("qiantai");
 
-        writer.print("<script language=javascript>window.location.href='index.do';</script>");
+        writer.print("<script language=javascript>window.location.href='../index.do';</script>");
 
 
     }
