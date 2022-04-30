@@ -27,4 +27,14 @@
         select deltaPrice,startTime,endTime,type from priceChange  where clID=#{id}
     </select>
 
+    <insert id="addDeltaPrice">
+        insert into pricechange(deltaPrice,startTIme,endTime,clID)
+        values(#{deltaPrice},#{startTime},#{endTime},#{id})
+    </insert>
+    <delete id="delDeltaPrice">
+        delete from pricechange
+        where deltaPrice=#{deltaPrice} and startTIme='${startTime}'
+        and endTime='${endTime}' and clID=#{id}
+    </delete>
+
 </mapper>

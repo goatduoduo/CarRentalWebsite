@@ -270,7 +270,7 @@ public class IndexController {
 
         request.setAttribute("title", "用户注册");
 
-        return "register";
+        return "new/register";
 
     }
     //用户注册操作

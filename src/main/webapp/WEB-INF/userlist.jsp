@@ -36,7 +36,6 @@
 
     <TR >
         <TD align="center" >用户名</TD>
-        <TD align="center" >密码</TD>
         <TD align="center" >姓名</TD>
         <TD align="center" >手机号码</TD>
         <TD align="center" >添加时间</TD>
@@ -49,7 +48,6 @@
 
         <TR >
             <TD align="center" >${bean.userName }</TD>
-            <TD align="center" >${bean.pwd }</TD>
             <TD align="center" >${bean.name }</TD>
             <TD align="center" >${bean.cellPhone }</TD>
             <TD align="center" >${bean.createTime }</TD>

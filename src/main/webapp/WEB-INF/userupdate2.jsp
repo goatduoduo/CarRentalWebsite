@@ -13,10 +13,6 @@
 
         function checkform()
         {
-
-
-
-
             if (document.getElementById('nameid').value=="")
             {
                 alert("姓名不能为空");

@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -217,8 +218,11 @@ public class UserController {
                 rentPrice.getDeposit(), car.getLicensePlate(),Integer.parseInt( rentDays));
         Calendar c=Calendar.getInstance();
         c.add( Calendar.DATE,Integer.parseInt( rentDays));
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String sqlDate=sdf.format(c.getTime());
+
         //租赁状态更新
-        carService.updateRentStatus2(car.getCarInfoId(), user.getCellPhone(), user.getID(), "rented",name, (java.sql.Date)c.getTime());
+        carService.updateRentStatus2(car.getCarInfoId(), user.getCellPhone(), user.getID(), "rented",name, java.sql.Date.valueOf(sqlDate));
         writer.print("<script  language='javascript'>alert('操作成功');window.location.href='reserveList.do'; </script>");
 
     }

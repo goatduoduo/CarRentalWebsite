@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -27,5 +28,15 @@ public class RentPriceServiceImpl implements RentPriceService {
     @Override
     public void moneyChange(int id, BigDecimal money) {
         rentPriceDao.moneyChange(id, money);
+    }
+
+    @Override
+    public void delDeltaPrice(int id, Date startTime, Date endTime, BigDecimal deltaPrice) {
+        rentPriceDao.delDeltaPrice(id, startTime, endTime, deltaPrice);
+    }
+
+    @Override
+    public void addDeltaPrice(int id, Date startTime, Date endTime, BigDecimal deltaPrice) {
+        rentPriceDao.addDeltaPrice(id, startTime, endTime, deltaPrice);
     }
 }

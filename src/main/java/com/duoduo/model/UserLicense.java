@@ -11,6 +11,15 @@ public class UserLicense implements Serializable {
     private int examineStatus;
     private Date receiveDate;
     private Date expireDate;
+    private String detail;
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public int getExamineStatus() {
         return examineStatus;

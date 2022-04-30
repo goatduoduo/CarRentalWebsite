@@ -23,11 +23,11 @@
                #{examineStatus},#{receiveDate},#{expireDate})
     </insert>
     <select id="selectBeanList" resultMap="userLicenseResultMap">
-        select * from driverlincence where examineStatus=#{status}
+        select * from driverlincence
     </select>
 
     <update id="setExamineStatus">
-        update driverlincence set examineStatus=#{status}
+        update driverlincence set examineStatus=#{examineStatus}
         where ID=#{ID}
     </update>
 
