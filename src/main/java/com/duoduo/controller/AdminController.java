@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -170,48 +170,6 @@ public class AdminController {
 
     }
 
-
-    //更新信息
-    @RequestMapping("/userupdate.do")
-    public String userupdate(HttpServletRequest request) {
-
-        request.setAttribute("title", "个人信息维护");
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-
-
-        User bean = userService.selectBeanById(user.getID());
-
-        request.setAttribute("bean", bean);
-
-        return "userupdate";
-
-    }
-
-    //个人信息维护操作
-    @RequestMapping("/userupdate2.do")
-    public void userupdate2(HttpServletRequest request, HttpServletResponse response, String userName, String cellPhone) {
-
-        PrintWriter writer = this.getPrintWriter(response);
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("qiantai");
-
-
-        User bean = userService.selectBeanById(user.getID());
-
-
-        bean.setUserName(userName);
-        bean.setName(cellPhone);
-
-        userService.updateBean(bean);
-
-        writer.print("<script language=javascript>alert('修改成功');window.location.href='userupdate.do';</script>");
-
-
-    }
-
     //安全退出操作
     @RequestMapping("/loginout.do")
     public void loginout(HttpServletRequest request, HttpServletResponse response) {
@@ -283,18 +241,18 @@ public class AdminController {
 
         request.setAttribute("title", "修改人员");
 
-        return "userupdate2";
+        return "new/userupdate2";
 
     }
 
     //修改人员操作
-    @RequestMapping("/userupdate2do.do")
+    @RequestMapping("/userupdate2.do")
     public void userupdate2(HttpServletResponse response, User bean) {
 
         userService.updateBean(bean);
 
 
-        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='userlist.do';</script>");
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');window.location.href='userlist2.do';</script>");
     }
 
     //修改人员操作
@@ -309,12 +267,65 @@ public class AdminController {
 
     //修改人员操作
     @RequestMapping("/licenseexamine.do")
-    public String licenseexamine(HttpServletRequest request, int status) {
-        request.setAttribute("status", status);
+    public String licenseexamine(HttpServletRequest request) {
+        //request.setAttribute("status", status);
+        int status=0;
         List<UserLicense> userLicenses = userLicenseService.selectBeanList(status);
+        for(UserLicense u:userLicenses){
+            if(u.getExamineStatus()==0){
+                u.setDetail("等待审核");
+            }
+            else if(u.getExamineStatus()==1){
+                u.setDetail("通过");
+            }
+            else{
+                u.setDetail("不通过");
+            }
+        }
         //列表返回页面
         request.setAttribute("list", userLicenses);
-        return "licenseexamine";
+        return "new/licenseexamine";
+    }
+
+    @RequestMapping("/download.do")
+    public String download(HttpServletResponse response,HttpServletRequest request, String filename) {
+        //文件的下载操作
+        String fileName = request.getParameter("filename");
+        System.out.println("2");
+        try {
+            // 得到要下载的文件
+            File file = new File( fileName);
+
+            // 如果文件不存在
+            if (!file.exists()) {
+                request.setAttribute("message", "您要下载的资源已被删除！！");
+                System.out.println("您要下载的资源已被删除！！");
+            }
+            // 处理文件名
+            String realname = fileName.substring(fileName.indexOf("_") + 1);
+            // 设置响应头，控制浏览器下载该文件
+            response.setHeader("content-disposition", "attachment;filename="
+                    + URLEncoder.encode(realname, "UTF-8"));
+            // 读取要下载的文件，保存到文件输入流
+            FileInputStream in = new FileInputStream( fileName);
+            // 创建输出流
+            OutputStream out = response.getOutputStream();
+            // 创建缓冲区
+            byte buffer[] = new byte[1024];
+            int len = 0;
+            // 循环将输入流中的内容读取到缓冲区当中
+            while ((len = in.read(buffer)) > 0) {
+                // 输出缓冲区的内容到浏览器，实现文件下载
+                out.write(buffer, 0, len);
+            }
+            // 关闭文件输入流
+            in.close();
+            // 关闭输出流
+            out.close();
+        } catch (Exception e) {
+
+        }
+        return "new/licenseexamine";
     }
 
     //审核通过
@@ -371,7 +382,6 @@ public class AdminController {
                 "window.location.href='carlist2.do';</script>");
     }
 
-    //todo 车辆的修改和删除
     //管理员的车辆页面
     @RequestMapping("/carlist2.do")
     public String carlist2(HttpServletRequest request, String pagenum, String brand, String carTypeId, String DailyRent) throws UnsupportedEncodingException {
@@ -430,15 +440,58 @@ public class AdminController {
 
     @RequestMapping("/carupdate.do")
     public String carupdate(HttpServletRequest request, int id) {
-        //todo 更新车辆
         Car bean = carService.selectBeanById(id);
+        RentPrice rentPrice=rentPriceService.selectPriceById(id);
+        //堆信息
 
         request.setAttribute("bean", bean);
+        request.setAttribute("rentPrice", rentPrice);
 
         request.setAttribute("url", "carupdate2.do?id=" + id);
 
         request.setAttribute("title", "修改车辆");
-        return "index.do";
+        return "new/carupdate";
+    }
+    @RequestMapping("/carupdate2.do")
+    public String carupdate2(HttpServletResponse response,HttpServletRequest request, int id) {
+//        //todo 更新车辆 当前位置，更新基本信息
+//        Car bean = carService.selectBeanById(id);
+//        RentPrice rentPrice=rentPriceService.selectPriceById(id);
+//        //堆信息
+//
+//        request.setAttribute("bean", bean);
+//        request.setAttribute("rentPrice", rentPrice);
+//
+//        request.setAttribute("url", "carupdate2.do?id=" + id);
+//
+//        request.setAttribute("title", "修改车辆");
+        this.getPrintWriter(response).print("<script language=javascript>alert('操作成功');" +
+                "window.location.href='carlist2.do';</script>");
+        return "new/carlist2";
+    }
+    @RequestMapping("/deltaprice.do")
+    public String deltaPrice(HttpServletRequest request, int id){
+        //进入淡旺季价格变化页面
+        Car bean = carService.selectBeanById(id);
+        RentPrice rentPrice=rentPriceService.selectPriceById(id);
+        List< PriceChange> priceChanges=rentPriceService.selectDeltaPriceById(id);
+        request.setAttribute("bean", bean);
+        request.setAttribute("rentPrice", rentPrice);
+        request.setAttribute("priceChanges", priceChanges);
+        return "new/deltaprice";
+    }
+    //todo 增加和删除
+    @RequestMapping("/deltaprice_del.do")
+    public void deltaPrice_del(HttpServletResponse response,HttpServletRequest request, int id,Date startTime,Date endTime,BigDecimal deltaPrice){
+        rentPriceService.delDeltaPrice(id, startTime, endTime, deltaPrice);
+        this.getPrintWriter(response).print("<script language=javascript>alert('删除成功');" +
+                "window.location.href='deltaprice.do?id="+id+"';</script>");
+    }
+    @RequestMapping("/deltaprice_add.do")
+    public void deltaPrice_add(HttpServletResponse response,HttpServletRequest request, int id,Date startTime,Date endTime,BigDecimal deltaPrice){
+        rentPriceService.addDeltaPrice(id, startTime, endTime, deltaPrice);
+        this.getPrintWriter(response).print("<script language=javascript>alert('添加成功');" +
+                "window.location.href='deltaprice.do?id="+id+"';</script>");
     }
 
     @RequestMapping("/cardelete.do")
@@ -576,12 +629,11 @@ public class AdminController {
     //确认归还
     @RequestMapping("/carreturn2.do")
     public void carreturn2(HttpServletRequest request, HttpServletResponse response,BigDecimal depositSubs) {
-        //todo：正在编辑
         HttpSession session=request.getSession();
         PrintWriter writer = this.getPrintWriter(response);
         RentPrice rentPrice = (RentPrice) session.getAttribute("rentPrice");
         BigDecimal price = (BigDecimal) session.getAttribute("total");
-        price.add(depositSubs);//计算额外扣除的押金
+        price= price.add(depositSubs);//计算额外扣除的押金
         int userID = carService.selectUser(rentPrice.getCarInfoId());
         User user = userService.selectBeanById(userID);
         moneyService.payOrReturn(userID, price); //多退少补
@@ -599,7 +651,7 @@ public class AdminController {
         for (PriceChange a : priceChange) {
             int ansDays = Math.max(DateUtil.daysBetween(
                     DateUtil.max(a.getStartTime(), start), DateUtil.min(a.getEndTime(), end)), 0);
-            ans.add(a.getDeltaPrice().multiply(new BigDecimal(ansDays)));
+            ans=ans.add(a.getDeltaPrice().multiply(new BigDecimal(ansDays)));
         }
 
         //输出淡旺季价格总变化（可能为负数）

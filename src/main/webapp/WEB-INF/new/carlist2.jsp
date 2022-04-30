@@ -85,14 +85,19 @@
                         <td>${bean.brief}</td>
                         <td>${bean.dailyRent }</td>
                         <td>
-                            <a href="carview.do?id=${bean.carInfoId }">
+                            <a href="carupdate.do?id=${bean.carInfoId }">
                                 <button class="mdui-btn mdui-btn-raised mdui-ripple" >
                                     <div class="mdui-text-color-white">编辑信息</div>
                                 </button>
                             </a>
-                        </td>
-                        <td>
-                            <a href="carview.do?id=${bean.carInfoId }">
+
+                            <a href="deltaprice.do?id=${bean.carInfoId }">
+                                <button class="mdui-btn mdui-btn-raised mdui-ripple" >
+                                    <div class="mdui-text-color-white">设置淡旺季变化</div>
+                                </button>
+                            </a>
+
+                            <a href="cardelete.do?id=${bean.carInfoId }">
                                 <button class="mdui-btn mdui-btn-raised mdui-ripple" >
                                     <div class="mdui-text-color-white">删除车辆</div>
                                 </button>
@@ -113,7 +118,7 @@
 
     <%@ include file="z-beian.html" %>
 </div>
-<script>document.getElementById("home").classList.add("mdui-list-item-active");</script>
+<script>document.getElementById("carlist").classList.add("mdui-list-item-active");</script>
 <%@ include file="z-footer.html" %>
 </body>
 </html>
