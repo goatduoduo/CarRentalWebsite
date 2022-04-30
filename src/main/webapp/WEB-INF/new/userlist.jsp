@@ -42,7 +42,6 @@
             <div class="mdui-row">
                 <tr>
                     <td>用户名</td>
-                    <td>密码</td>
                     <td>姓名</td>
                     <td>手机号</td>
                     <td>添加时间</td>
@@ -52,7 +51,6 @@
                 <c:forEach items="${list}" var="bean">
                     <tr>
                         <td>${bean.userName }</td>
-                        <td>${bean.pwd }</td>
                         <td>${bean.name }</td>
                         <td>${bean.cellPhone }</td>
                         <td>${bean.createTime }</td>
@@ -61,14 +59,12 @@
                             <c:if test="${bean.role==2 }">顾客</c:if>
                         </td>
                         <td>
-                            <a href="carview.do?id=${bean.ID }">
+                            <a href="userupdate22.do?id=${bean.ID }">
                                 <button class="mdui-btn mdui-btn-raised mdui-ripple" >
                                     <div class="mdui-text-color-white">编辑信息</div>
                                 </button>
                             </a>
-                        </td>
-                        <td>
-                            <a href="carview.do?id=${bean.ID }">
+                            <a href="userdelete2.do?id=${bean.ID }">
                                 <button class="mdui-btn mdui-btn-raised mdui-ripple" >
                                     <div class="mdui-text-color-white">注销账户</div>
                                 </button>
@@ -87,7 +83,7 @@
 
     <%@ include file="z-beian.html" %>
 </div>
-<script>document.getElementById("home").classList.add("mdui-list-item-active");</script>
+<script>document.getElementById("userlist").classList.add("mdui-list-item-active");</script>
 <%@ include file="z-footer.html" %>
 </body>
 </html>

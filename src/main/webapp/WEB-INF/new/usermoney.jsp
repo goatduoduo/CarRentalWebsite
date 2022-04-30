@@ -47,7 +47,7 @@
     </div>
     <%@ include file="z-beian.html" %>
 </div>
-<script>document.getElementById("home").classList.add("mdui-list-item-active");</script>
+<script>document.getElementById("money").classList.add("mdui-list-item-active");</script>
 <%@ include file="z-footer.html" %>
 </body>
 </html>

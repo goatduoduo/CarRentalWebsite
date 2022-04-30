@@ -107,7 +107,7 @@
     <%@ include file="z-beian.html"%>
 </div>
 <script>
-    document.getElementById("home").classList.add("mdui-list-item-active");
+    document.getElementById("apk").classList.add("mdui-list-item-active");
 
 </script>
 <%@ include file="z-footer.html"%>
